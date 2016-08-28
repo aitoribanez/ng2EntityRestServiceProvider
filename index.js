@@ -16,7 +16,7 @@
     path: '/data/2.5/weather?q=fairplay'
   };
 
-  var weather = exports;
+  var weather = {};
 
   // weather(set)  --------------------------------------------  weather(set)  ---------------------------------------------
   weather.setLang = function(lang){
@@ -212,4 +212,5 @@
     });
   };
 
+  exports.weather = Object.assign({}, weather);
 })();
