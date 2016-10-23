@@ -1,6 +1,6 @@
 # MacetoHuertoApp
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.15.
+This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.18.
 
 REST service for entitys on angular2. 
 
@@ -50,3 +50,5 @@ para evitar dicho error. EL error es apartir de la version 1.0.0-beta.16
 Issue creada por si les ayuda y nos aporta algo de informacion:
 
 https://github.com/angular/angular-cli/issues/2788
+
+Fixed apartir de la version 1.0.0-beta.18
