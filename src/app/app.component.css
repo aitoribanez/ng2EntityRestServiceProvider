@@ -1,0 +1,19 @@
+.right {
+  float:"right";
+}
+#margin-right-10 {
+  margin-right: 10px;
+}
+#margin-top-15 {
+  margin-top: 15px;
+}
+.card-content a {
+  color:#000;
+}
+.card-header-right {
+  float:right;
+  position:absolute;
+  bottom:80%;
+  left:60%;
+  color:#fff;
+}

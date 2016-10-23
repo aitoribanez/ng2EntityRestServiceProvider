@@ -29,3 +29,20 @@ Run `ng github-pages:deploy` to deploy to Github Pages.
 ## Further help
 
 To get more help on the `angular-cli` use `ng --help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+
+## CAMBIOS
+
+angular-cli viene en la version 1.0.0-beta.17. Asi, al hacer un 
+ng new my-super-app da el siguiente error:
+
+
+npm ERR! git rev-list -n1 7e55907cd54a2e91b96d25a660acc6a2a6453f54: 
+fatal: bad object 7e55907cd54a2e91b96d25a660acc6a2a6453f54
+
+Se ha tenido que bajar la version de angular-cli a la version 1.0.0-beta.15
+para evitar dicho error. EL error es apartir de la version 1.0.0-beta.16
+
+Issue creada por si les ayuda y nos aporta algo de informacion:
+
+https://github.com/angular/angular-cli/issues/2788

@@ -10,11 +10,12 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule,
     FormsModule,
+    BrowserModule,
     HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
