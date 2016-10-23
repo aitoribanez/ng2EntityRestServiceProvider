@@ -1,6 +1,10 @@
 # MacetoHuertoApp
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.17.
+This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.15.
+
+REST service for entitys on angular2. 
+
+At least, an inyectable service for GET REST request using observables and promises.
 
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
