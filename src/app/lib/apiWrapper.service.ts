@@ -13,9 +13,10 @@ export default class ApiWrapperService {
   }
 
   get(url: String) {
-    return this.http.get(`${environment.apiUrl}/${url}`)
-       .toPromise()
-       .then((resp) => console.log(resp.json()[1]));
+    return this.http
+      .get(`${environment.apiUrl}/${url}`)
+      .toPromise()
+      .then(resp => resp.json()); 
   }
 
 }

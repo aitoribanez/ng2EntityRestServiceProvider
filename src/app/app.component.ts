@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+
 import ApiWrapperService from './lib/apiWrapper.service';
+import { Product } from './entitys/product'
 
 @Component({
   selector: 'app-root',
@@ -10,9 +12,15 @@ import ApiWrapperService from './lib/apiWrapper.service';
 
 export class AppComponent {
   title: string = 'app works!';
+  products: Array<Product>;
 
   constructor(api: ApiWrapperService) {
-    console.log(api.get('products'));
+    api
+      .get('products')
+      .then(products => { 
+        console.log(products);
+        this.products = products
+      });  
   }
   
 }
