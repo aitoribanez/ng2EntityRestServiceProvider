@@ -5,17 +5,19 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
 
 const routing = RouterModule.forRoot([
-    { path: '',      component: AppComponent },
+    { path: '',      component: HomeComponent },
     { path: 'about', component: AboutComponent }
 ])
 
 @NgModule({
   declarations: [
     AppComponent,
-    AboutComponent
+    AboutComponent,
+    HomeComponent
   ],
   imports: [
     FormsModule,
