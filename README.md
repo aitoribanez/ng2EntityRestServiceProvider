@@ -5,6 +5,12 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 REST service for entitys on angular2. 
 
 At least, an inyectable service for GET REST request using observables and promises.
+Response is printed primarily on the screen.
+
+## Prerequisites
+1. Install [**N**ode.js](https://nodejs.org)
+2. Install Angular CLI: `npm i angular-cli -g`
+3. From project root folder install all the dependencies: `npm i`
 
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

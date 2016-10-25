@@ -17,7 +17,7 @@ export class AppComponent {
   constructor(api: ApiWrapperService) {
     api
       .get('products')
-      .then(products => { 
+      .subscribe(products => { 
         console.log(products);
         this.products = products
       });  
