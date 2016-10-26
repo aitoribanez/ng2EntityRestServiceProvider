@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import ApiWrapperService from '../../lib/apiWrapper.service';
-import { Product } from '../../entitys/product'
-
+import { Product } from '../../entitys/product';
+import { config } from '../../components/config';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -17,13 +17,25 @@ export class HomeComponent implements OnInit {
   constructor(api: ApiWrapperService) {
     api
       .get('products')
-      .subscribe(products => { 
-        console.log(products);
+      .subscribe(products => {
+        products.map(obj => obj.collecttime = this._toString(obj.collecttime, config.es.months))
+        products.map(obj => obj.seedtime = this._toString(obj.seedtime, config.es.months))
+
         this.products = products
       });  
   }
 
   ngOnInit() {
+  }
+
+ /**
+ * Number to String using an array. (jsdoc)
+ * @constructor
+ * @param {number} number.
+ * @param {months} array.
+ */
+  private _toString(number, months) {
+    return months[number - 1];
   }
 
 }
