@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import ApiWrapperService from '../../lib/apiWrapper.service';
+import ApiWrapperService from '../../services/apiWrapper.service';
 import { Product } from '../../entitys/product';
-import { config } from '../../components/config';
+import { config } from './config';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
