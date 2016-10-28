@@ -18,5 +18,5 @@ characters min</div>
 is required</div>
   </div>
 
-  <button type="submit">Register</button>
+  <button type="submit" [disabled]="!userForm.valid">Register</button>
 </form>

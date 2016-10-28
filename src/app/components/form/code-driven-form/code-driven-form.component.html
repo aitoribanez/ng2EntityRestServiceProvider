@@ -1,4 +1,4 @@
-<h2>Sign up JJ</h2>
+<h2>Sign up</h2>
 <form (ngSubmit)="register(user)" [formGroup]="userForm">
   <div>
     <label>Username</label>
@@ -12,6 +12,14 @@ characters min</div>
     <label>Password</label>
     <input type="password" formControlName="password">
     <div *ngIf="passwordCtrl.dirty && passwordCtrl.hasError('required')">Password is required</div>
+  </div>
+
+  <div>
+    <label>Birth date</label><input type="date" formControlName="birthdate">
+    <div *ngIf="birthdateCtrl.dirty">
+      <div *ngIf="birthdateCtrl.hasError('required')">Birth date is required</div>
+      <div *ngIf="birthdateCtrl.hasError('tooYoung')">You're way too young</div>
+    </div>
   </div>
 
   <button type="submit" [disabled]="!userForm.valid">Register</button>
