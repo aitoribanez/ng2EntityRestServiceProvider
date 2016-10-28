@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 class User {
   username: string;
@@ -15,11 +15,12 @@ export class CodeDrivenFormComponent implements OnInit {
   usernameCtrl: FormControl;
   passwordCtrl: FormControl;
   userForm: FormGroup;
-  user:User = new User();
 
   constructor(fb: FormBuilder) {
-    this.usernameCtrl = fb.control('');
-    this.passwordCtrl = fb.control('');
+    this.usernameCtrl = fb.control('', Validators.compose([Validators.required, Validators
+.minLength(3)]));
+    this.passwordCtrl = fb.control('', Validators.required);
+ 
     this.userForm = fb.group({
       username: this.usernameCtrl,
       password: this.passwordCtrl

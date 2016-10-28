@@ -4,12 +4,18 @@
 <form (ngSubmit)="register(userForm.value)" #userForm="ngForm">
   <div>
     <label>Username</label>
-    <input name="username" ngModel>
+    <input name="username" ngModel required minlength="3" #username="ngModel">
+    <div *ngIf="username.control.dirty && username.control.hasError('required')">Username
+is required</div>
+    <div *ngIf="username.control.dirty && username.control.hasError('minlength')">Username should be 3
+characters min</div>
   </div>
   
   <div>
     <label>Password</label>
-    <input type="password" name="password" ngModel>
+    <input type="password" name="password" ngModel required #password="ngModel">
+    <div *ngIf="password.control.dirty && password.control.hasError('required')">Password
+is required</div>
   </div>
 
   <button type="submit">Register</button>

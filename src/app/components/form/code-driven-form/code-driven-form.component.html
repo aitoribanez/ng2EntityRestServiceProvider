@@ -1,15 +1,18 @@
-<h2>Sign up</h2>
+<h2>Sign up JJ</h2>
 <form (ngSubmit)="register(user)" [formGroup]="userForm">
   <div>
     <label>Username</label>
-    <input formControlName="username" [(ngModel)]="user.username">
-    <small>{{ user.username }}</small>
+    <input formControlName="username">
+    <div *ngIf="usernameCtrl.dirty && usernameCtrl.hasError('required')">Username is required</div>
+    <div *ngIf="usernameCtrl.dirty && usernameCtrl.hasError('minlength')">Username should be 3
+characters min</div>
   </div>
 
   <div>
     <label>Password</label>
-    <input type="password" formControlName="password" [(ngModel)]="user.password">
+    <input type="password" formControlName="password">
+    <div *ngIf="passwordCtrl.dirty && passwordCtrl.hasError('required')">Password is required</div>
   </div>
 
-  <button type="submit">Register</button>
+  <button type="submit" [disabled]="!userForm.valid">Register</button>
 </form>
