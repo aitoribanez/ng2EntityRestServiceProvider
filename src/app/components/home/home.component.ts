@@ -7,7 +7,7 @@ import { config } from './config';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  providers: [ApiWrapperService],
+  providers: [ApiWrapperService]
 })
 
 export class HomeComponent implements OnInit {
@@ -18,8 +18,10 @@ export class HomeComponent implements OnInit {
     api
       .get('products')
       .subscribe(products => {
-        products.map(obj => obj.collecttime = this._toString(obj.collecttime, config.es.months))
-        products.map(obj => obj.seedtime = this._toString(obj.seedtime, config.es.months))
+        products.map(obj => { 
+          obj.collecttime = this._toString(obj.collecttime, config.es.months);
+          obj.seedtime = this._toString(obj.seedtime, config.es.months);
+        })
 
         this.products = products
       });  
@@ -34,7 +36,7 @@ export class HomeComponent implements OnInit {
  * @param {number} number.
  * @param {months} array.
  */
-  private _toString(number, months) {
+  private _toString(number: number, months: Array<String>): String {
     return months[number - 1];
   }
 

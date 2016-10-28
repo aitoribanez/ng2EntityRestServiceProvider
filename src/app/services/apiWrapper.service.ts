@@ -17,11 +17,11 @@ export default class ApiWrapperService {
     return this.http.get(this.getApiUrl(url)).map(res => res.json());
   }
 
-  /* add(url: string, data) { // product
-    return this.http.post(this.getApiUrl(url), JSON.stringify(data.cat), this.options);
+  add(url: string, data):Observable<any> {
+    return this.http.post(this.getApiUrl(url), JSON.stringify(data), this.options);
   }
 
-  edit(url: string, data) { // product/1 OR product/asd18k -> uuid
+  /* edit(url: string, data) { // product/1 OR product/asd18k -> uuid
     return this.http.put(this.getApiUrl(url), JSON.stringify(data), this.options);
   }
 

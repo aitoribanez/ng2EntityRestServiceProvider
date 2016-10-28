@@ -1,0 +1,15 @@
+<h2>Sign up</h2>
+<form (ngSubmit)="register(user)" [formGroup]="userForm">
+  <div>
+    <label>Username</label>
+    <input formControlName="username" [(ngModel)]="user.username">
+    <small>{{ user.username }}</small>
+  </div>
+
+  <div>
+    <label>Password</label>
+    <input type="password" formControlName="password" [(ngModel)]="user.password">
+  </div>
+
+  <button type="submit">Register</button>
+</form>
