@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UUID } from 'angular2-uuid';
-import { FlashMessagesService } from 'angular2-flash-messages';
+import { toast } from 'angular2-materialize'
 
 import ApiWrapperService from '../../../services/apiWrapper.service';
 
@@ -21,8 +21,7 @@ export class ProductFormComponent implements OnInit {
   collecttimeCtrl: FormControl;
   productForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router, 
-  private flash: FlashMessagesService, private productService: ApiWrapperService) {
+  constructor(private fb: FormBuilder, private router: Router, private productService: ApiWrapperService) {
     
     this.nameCtrl = fb.control('', Validators.compose([Validators.required, Validators
 .minLength(4)]));
@@ -47,7 +46,7 @@ export class ProductFormComponent implements OnInit {
     this.productService.add('products', this.productForm.value)
       .subscribe(
         product => {
-          this.flash.show('Product have been saved!', { cssClass: 'alert-success', timeout: 5000 });
+          toast('Product have been saved!', 5000)
           this.router.navigate(['/']);
         }
         // error =>  this.errorMessage = <any>error

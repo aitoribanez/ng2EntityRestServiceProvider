@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import {  MaterializeDirective } from 'angular2-materialize';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -30,7 +31,8 @@ const routing = RouterModule.forRoot([
     ProductFormComponent,
     TemplateDrivenFormComponent,
     TemplateDrivenForm2wayComponent,
-    CodeDrivenFormComponent
+    CodeDrivenFormComponent,
+    MaterializeDirective
   ],
   imports: [
     FormsModule,
