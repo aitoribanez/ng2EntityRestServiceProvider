@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -37,7 +38,8 @@ const routing = RouterModule.forRoot([
     BrowserModule,
     HttpModule,
     RouterModule,
-    routing
+    routing,
+    FlashMessagesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

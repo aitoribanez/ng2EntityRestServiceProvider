@@ -1,11 +1,5 @@
 <h2>Add product</h2>
 <form (ngSubmit)="add()" [formGroup]="productForm">
-  <!-- <div>
-    <label>id</label>
-    <input formControlName="id">
-    <div *ngIf="idCtrl.dirty && idCtrl.hasError('required')">ID is required</div>
-  </div> -->
-
   <div>
     <label>Name</label>
     <input formControlName="name">

@@ -12,7 +12,7 @@ import { config } from './config';
 
 export class HomeComponent implements OnInit {
   title: string = 'app works!';
-  products: Array<Product>;
+  public products: Array<Product>;
 
   constructor(api: ApiWrapperService) {
     api
@@ -27,6 +27,9 @@ export class HomeComponent implements OnInit {
       });  
   }
 
+ei() {
+  
+}
   ngOnInit() {
   }
 
