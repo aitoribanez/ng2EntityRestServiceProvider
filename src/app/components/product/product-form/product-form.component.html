@@ -1,44 +1,42 @@
-<div class="container">
-    <h3>Add Product</h3>
-     <form [formGroup]="complexForm" (ngSubmit)="submitForm(complexForm.value)">
-      <div class="form-group">
-        <label>First Name:</label>
-        <input class="form-control" type="text" placeholder="John" [formControl]="complexForm.controls['firstName']">
-      </div>
-      <div class="form-group">
-        <label>Last Name</label>
-        <input class="form-control" type="text" placeholder="Doe" [formControl]="complexForm.controls['lastName']">
-      </div>
-      <div class="form-group">
-        <label>Gender</label>
-      </div>
-      <div class="radio">
-        <label>
-          <input type="radio" name="gender" value="Male" [formControl]="complexForm.controls['gender']">
-          Male
-        </label>
-      </div>
-      <div class="radio">
-        <label>
-          <input type="radio" name="gender" value="Female" [formControl]="complexForm.controls['gender']">
-          Female
-        </label>
-      </div>
-      <div class="form-group">
-        <label>Activities</label>
-      </div>
-      <label class="checkbox-inline">
-        <input type="checkbox" value="hiking" name="hiking" [formControl]="complexForm.controls['hiking']"> Hiking
-      </label>
-      <label class="checkbox-inline">
-        <input type="checkbox" value="swimming" name="swimming" [formControl]="complexForm.controls['swimming']"> Swimming
-      </label>
-      <label class="checkbox-inline">
-        <input type="checkbox" value="running" name="running" [formControl]="complexForm.controls['running']"> Running
-      </label>
-      <div class="form-group">
-        <button type="submit" class="btn btn-default">Submit</button>
-      </div>
-    </form>
+<h2>Add product</h2>
+<form (ngSubmit)="add()" [formGroup]="productForm">
+  <!-- <div>
+    <label>id</label>
+    <input formControlName="id">
+    <div *ngIf="idCtrl.dirty && idCtrl.hasError('required')">ID is required</div>
+  </div> -->
 
-</div>
+  <div>
+    <label>Name</label>
+    <input formControlName="name">
+    <div *ngIf="nameCtrl.dirty && nameCtrl.hasError('required')">Name is required</div>
+    <div *ngIf="nameCtrl.dirty && nameCtrl.hasError('minlength')">Name should be 4
+characters min</div>
+  </div>
+
+  <div>
+    <label>Photo</label>
+    <input formControlName="photo">
+    <div *ngIf="photoCtrl.dirty && photoCtrl.hasError('required')">Photo is required</div>
+  </div>
+
+   <div>
+    <label>Difficulty</label>
+    <input formControlName="difficulty">
+    <div *ngIf="difficultyCtrl.dirty && difficultyCtrl.hasError('required')">Difficulty is required</div>
+  </div>
+
+  <div>
+    <label>Seed time</label>
+    <input formControlName="seedtime">
+    <div *ngIf="seedtimeCtrl.dirty && seedtimeCtrl.hasError('required')">Seedtime is required</div>
+  </div>
+
+  <div>
+    <label>Collect time</label>
+    <input formControlName="collecttime">
+    <div *ngIf="collecttimeCtrl.dirty && collecttimeCtrl.hasError('required')">Collect time is required</div>
+  </div>
+
+  <button type="submit" [disabled]="!productForm.valid">Register</button>
+</form>

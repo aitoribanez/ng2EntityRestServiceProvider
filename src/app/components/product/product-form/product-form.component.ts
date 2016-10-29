@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { UUID } from 'angular2-uuid';
 
-// import { Employee }    from '../models/employee';
 import ApiWrapperService from '../../../services/apiWrapper.service';
 
 @Component({
@@ -12,47 +12,42 @@ import ApiWrapperService from '../../../services/apiWrapper.service';
 })
 
 export class ProductFormComponent implements OnInit {
+  nameCtrl: FormControl;
+  photoCtrl: FormControl;
+  difficultyCtrl: FormControl;
+  seedtimeCtrl: FormControl;
+  collecttimeCtrl: FormControl;
+  productForm: FormGroup;
 
-  constructor(private productService: ApiWrapperService) { }
+  constructor(fb: FormBuilder, private productService: ApiWrapperService) {
+    this.nameCtrl = fb.control('', Validators.compose([Validators.required, Validators
+.minLength(4)]));
+    this.photoCtrl = fb.control('', Validators.required);
+    this.difficultyCtrl = fb.control('', Validators.required);
+    this.seedtimeCtrl = fb.control('', Validators.required);
+    this.collecttimeCtrl = fb.control('', Validators.required);
 
-  // public model: Employee = {name: '', id: 1 };
-  public errorMessage: string;
-   complexForm: FormGroup;
-
-  construct(formBuilder: FormBuilder) {
-    this.complexForm = formBuilder.group({
-      'firstName' : '',
-      'lastName': '',
-      'gender' : ['Female'],
-      'hiking' : false,
-      'running' : false,
-      'swimming' : false
-    })
-
+    this.productForm = fb.group({
+      id: UUID.UUID(),
+      name: this.nameCtrl,
+      photo: this.photoCtrl,
+      difficulty: this.difficultyCtrl,
+      seedtime: this.seedtimeCtrl,
+      collecttime: this.collecttimeCtrl
+    });
   }
 
   ngOnInit() {
   }
 
-  add(event) {
-    console.log("add")
-    event.preventDefault();
-    
-    let example =  {
-      id: 100,
-      name: 'Sakatu',
-      photo: 'img/1.jpg',
-      difficulty: 1,
-      seedtime: 2,
-      collecttime: 3 
-    }
+  add() {
+    console.log(this.productForm.value);
 
-    this.productService.add('products', example)
+    this.productService.add('products', this.productForm.value)
       .subscribe(
-        product => console.log(product),
-        error =>  this.errorMessage = <any>error
+        product => console.log(product)
+        // error =>  this.errorMessage = <any>error
       );
-    // window.history.back();
   }
 
 }
