@@ -5,12 +5,13 @@ import { UUID } from 'angular2-uuid';
 import { toast } from 'angular2-materialize'
 
 import ApiWrapperService from '../../../services/apiWrapper.service';
+import { ProductResolve } from './product-resolve'
 
 @Component({
   selector: 'product-form',
   templateUrl: './product-form.component.html',
-  styleUrls: ['./product-form.component.css'],
-  providers: [ApiWrapperService]
+  styleUrls: ['./product-form.component.css']
+  // providers: [ApiWrapperService, ProductResolve]
 })
 
 export class ProductFormComponent implements OnInit {
@@ -21,26 +22,16 @@ export class ProductFormComponent implements OnInit {
   collecttimeCtrl: FormControl;
   productForm: FormGroup;
   type: string;
-  params: Object;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute,
   private router: Router, private productService: ApiWrapperService) {
 
-   this.route.params.forEach((params: Params) => {
-     this.type = Object.keys(params).length > 0 ? "edit" : "add";
-     this.params = params;
-   })
+   this.type = Object.keys(this.route.snapshot.params).length > 0 ? "edit" : "add";
 
-   if (this.type != 'add') {
-     this.productService.edit(`products/${this.params['id']}`)
-       .subscribe(product => { this._formConfig(fb, product) })
-     // to dont get an error saying that form filed hasnt FormControl-ed added
-     this._formConfig(fb, {})
-     
-   }  else {
-
-     this._formConfig(fb, {})
-
+   if (this.type !== 'add') {
+     this.formConfig(fb, this.route.snapshot.data['product'])
+   } else {
+     this.formConfig(fb, {})
    }
   }
 
@@ -70,7 +61,7 @@ export class ProductFormComponent implements OnInit {
  * Edit product on data store
  */
   edit() {
-    this.productService.update(`products/${this.params['id']}`, this.productForm.value) 
+    this.productService.update(`products/${this.route.snapshot.params['id']}`, this.productForm.value) 
       .subscribe(product => {
           toast('Product have been updated!', 5000)
           this.router.navigate(['/']);
@@ -79,12 +70,12 @@ export class ProductFormComponent implements OnInit {
       );
   }
 
-  /**
+/**
  * Form configuration:
  *   - Define controls
  *   - Define group
  */
-  _formConfig(fb, productForm) {
+  formConfig(fb, productForm) {
       this.nameCtrl = fb.control(productForm.name || '', Validators.compose([Validators.required, Validators
 .minLength(4)]));
     this.photoCtrl = fb.control(productForm.photo || '', Validators.required);

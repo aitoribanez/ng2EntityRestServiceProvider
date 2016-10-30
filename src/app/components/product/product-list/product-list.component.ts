@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import ApiWrapperService from '../../../services/apiWrapper.service';
 import { Product } from '../../../entitys/product';
 import { config } from './config';
+
 @Component({
   selector: 'product-list',
   templateUrl: './product-list.component.html',
@@ -14,8 +15,9 @@ export class ProductListComponent implements OnInit {
   title: string = 'app works!';
   public products: Array<Product>;
 
-  constructor(api: ApiWrapperService) {
-    api
+  constructor(productService: ApiWrapperService) {
+    
+    productService
       .get('products')
       .subscribe(products => {
         products.map(obj => { 
@@ -27,9 +29,6 @@ export class ProductListComponent implements OnInit {
       });  
   }
 
-ei() {
-  
-}
   ngOnInit() {
   }
 

@@ -13,21 +13,19 @@ export default class ApiWrapperService {
 
   constructor(private http: Http) {}
 
-  get(url: string) {
-    return this.http.get(this.getApiUrl(url))
-      .map(res => res.json());
+  get(url: string):Observable<any> {
+    return this.http.get(this.getApiUrl(url)).map(res => res.json());
   }
 
   add(url: string, data):Observable<any> {
     return this.http.post(this.getApiUrl(url), JSON.stringify(data), this.options);
   }
 
-  edit(url: string) { // product/1 OR product/asd18k -> uuid
-    return this.http.get(this.getApiUrl(url))
-      .map(res => res.json());
+  edit(url: string):Observable<any> {
+    return this.http.get(this.getApiUrl(url)).map(res => res.json());
   }
 
-  update(url: string, data) { // product/1 OR product/asd18k -> uuid ???  
+  update(url: string, data):Observable<any> {  
     return this.http.put(this.getApiUrl(url), JSON.stringify(data), this.options);
   }
 
