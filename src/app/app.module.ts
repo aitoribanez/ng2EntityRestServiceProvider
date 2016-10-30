@@ -3,11 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { FlashMessagesModule } from 'angular2-flash-messages';
-import {  MaterializeDirective } from 'angular2-materialize';
+import { MaterializeDirective } from 'angular2-materialize';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
+import { ProductListComponent } from './components/product/product-list/product-list.component';
 import { AboutComponent } from './components/about/about.component';
 import { ProductFormComponent } from './components/product/product-form/product-form.component';
 import { TemplateDrivenFormComponent } from './components/form/template-driven-form/template-driven-form.component';
@@ -15,8 +14,10 @@ import { TemplateDrivenForm2wayComponent } from './components/form/template-driv
 import { CodeDrivenFormComponent } from './components/form/code-driven-form/code-driven-form.component';
 
 const routing = RouterModule.forRoot([
-    { path: '', component: HomeComponent },
+    { path: '', component: ProductListComponent },
+    { path: 'product', component: ProductListComponent },
     { path: 'product/new', component: ProductFormComponent },
+    { path: 'product/edit/:id', component: ProductFormComponent },
     { path: 'about', component: AboutComponent },
     { path: 'templatedriven1way', component: TemplateDrivenFormComponent },
     { path: 'templatedriven2way', component: TemplateDrivenForm2wayComponent },
@@ -27,7 +28,7 @@ const routing = RouterModule.forRoot([
   declarations: [
     AppComponent,
     AboutComponent,
-    HomeComponent,
+    ProductListComponent,
     ProductFormComponent,
     TemplateDrivenFormComponent,
     TemplateDrivenForm2wayComponent,
@@ -40,8 +41,7 @@ const routing = RouterModule.forRoot([
     BrowserModule,
     HttpModule,
     RouterModule,
-    routing,
-    FlashMessagesModule
+    routing
   ],
   providers: [],
   bootstrap: [AppComponent]

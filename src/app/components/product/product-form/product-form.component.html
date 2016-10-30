@@ -1,6 +1,8 @@
-<h2>Add product</h2>
+<h2>{{ type }} product</h2>
+
 <a class="btn" onclick="Materialize.toast('I am a toast', 4000)">Toast 1!</a>
-<form (ngSubmit)="add()" [formGroup]="productForm">
+
+<form (ngSubmit)="call()" [formGroup]="productForm">
   <div>
     <label>Name</label>
     <input formControlName="name">

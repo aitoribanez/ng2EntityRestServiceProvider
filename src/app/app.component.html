@@ -1,13 +1,10 @@
 <div class="container">
   <div class="row">
      <a [routerLink]="['/']" class="nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-        <i class="fa fa-home"></i> Home
+        <i class="fa fa-home"></i> Products
       </a>
       <a [routerLink]="['/about']" class="nav-item nav-link">
         <i class="fa fa-info-circle"></i> About
-      </a>
-      <a [routerLink]="['/product/new']" class="nav-item nav-link">
-        <i class="fa fa-info-circle"></i> New product
       </a>
        <a [routerLink]="['/templatedriven1way']" class="nav-item nav-link">
         <i class="fa fa-info-circle"></i> Template Driven 1 Way data binding (field --> model)
@@ -21,7 +18,6 @@
   </div>
 
   <div class="row">
-    <flash-messages></flash-messages>
     <router-outlet></router-outlet>
   </div>  
 </div>

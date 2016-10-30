@@ -1,6 +1,10 @@
 <div class="row">
-  <div class="row">
-    <h2>Productos</h2>
+    <h2>Products</h2>
+    <small class="right">
+      <a [routerLink]="['/product/new']" class="nav-item nav-link">
+        <i class="fa fa-info-circle"></i> New product
+      </a>
+    </small>
     {{ title }}
      <ul>
       <li *ngFor="let product of products">
@@ -25,10 +29,10 @@
                 <img style="vertical-align: top" src="https://maxcdn.icons8.com/iOS7/PNG/25/DIY/garden_shears-25.png" alt="Recogida" title="Recogida" width="22">
                 <span>{{ product.seedtime }}</span>
                 <span class="right">
-                  <a href="#" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Añadir nota">
-                    <i class="material-icons dp48" title="Añadir nota">speaker_notes</i>
+                  <a materialize="tooltip" href="#" class="tooltipped" data-position="bottom" data-tooltip="Añadir nota">
+                    <i class="material-icons dp48" title="Añadir nota">speaker_notes</i>         
                   </a>
-                  <a href="#" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Añadir a favoritos">
+                  <a materialize="tooltip" href="#" class="tooltipped" data-position="bottom" data-tooltip="Añadir a favoritos">
                     <i class="material-icons dp48" title="Añadir a favoritos">star</i>
                   </a>
                 </span>
@@ -38,9 +42,13 @@
               I am convenient because I require little markup to use effectively.
               </p>
             </div>
+            <div class="card-action">
+              
+              <a [routerLink]="['product/edit/id',{id:product.id}]" class="nav-item nav-link">Edit</a>
+              <a href="#">Delete</a>
+            </div>
           </div>
         </div>        
       </li>
     </ul>
   </div>
-</div>

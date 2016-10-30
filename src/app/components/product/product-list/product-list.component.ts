@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
-import ApiWrapperService from '../../services/apiWrapper.service';
-import { Product } from '../../entitys/product';
+import ApiWrapperService from '../../../services/apiWrapper.service';
+import { Product } from '../../../entitys/product';
 import { config } from './config';
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  selector: 'product-list',
+  templateUrl: './product-list.component.html',
+  styleUrls: ['./product-list.component.css'],
   providers: [ApiWrapperService]
 })
 
-export class HomeComponent implements OnInit {
+export class ProductListComponent implements OnInit {
   title: string = 'app works!';
   public products: Array<Product>;
 
