@@ -5,7 +5,6 @@ import { UUID } from 'angular2-uuid';
 import { toast } from 'angular2-materialize'
 
 import ApiWrapperService from '../../../services/apiWrapper.service';
-import { ProductResolve } from './product-resolve'
 
 @Component({
   selector: 'product-form',

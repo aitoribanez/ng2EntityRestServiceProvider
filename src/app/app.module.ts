@@ -13,11 +13,12 @@ import { TemplateDrivenFormComponent } from './components/form/template-driven-f
 import { TemplateDrivenForm2wayComponent } from './components/form/template-driven-form-2way/template-driven-form-2way.component';
 import { CodeDrivenFormComponent } from './components/form/code-driven-form/code-driven-form.component';
 import { ProductResolve } from './components/product/product-form/product-resolve'
+import { ProductsResolve } from './components/product/product-list/products-resolve'
 import ApiWrapperService from './services/apiWrapper.service';
 
 const routing = RouterModule.forRoot([
-    { path: '', component: ProductListComponent },
-    { path: 'product', component: ProductListComponent },
+    { path: '', redirectTo: 'product', pathMatch: 'full' },
+    { path: 'product', component: ProductListComponent, resolve: { products: ProductsResolve } },
     { path: 'product/new', component: ProductFormComponent },
     { path: 'product/edit/:id', component: ProductFormComponent, resolve: { product: ProductResolve } },
     { path: 'about', component: AboutComponent },
@@ -45,7 +46,7 @@ const routing = RouterModule.forRoot([
     RouterModule,
     routing
   ],
-  providers: [ProductResolve, ApiWrapperService],
+  providers: [ProductResolve, ProductsResolve, ApiWrapperService],
   bootstrap: [AppComponent]
 })
 

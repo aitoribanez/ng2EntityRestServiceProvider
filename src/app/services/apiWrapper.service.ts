@@ -13,16 +13,18 @@ export default class ApiWrapperService {
 
   constructor(private http: Http) {}
 
+  //get all products
   get(url: string):Observable<any> {
+    return this.http.get(this.getApiUrl(url)).map(res => res.json());
+  }
+
+  // get one product
+  one(url: string):Observable<any> {
     return this.http.get(this.getApiUrl(url)).map(res => res.json());
   }
 
   add(url: string, data):Observable<any> {
     return this.http.post(this.getApiUrl(url), JSON.stringify(data), this.options);
-  }
-
-  edit(url: string):Observable<any> {
-    return this.http.get(this.getApiUrl(url)).map(res => res.json());
   }
 
   update(url: string, data):Observable<any> {  
@@ -33,7 +35,7 @@ export default class ApiWrapperService {
     return this.http.delete(this.getApiUrl(url), this.options);
   } */
 
-/**
+ /**
  * Add baseUrl to sended url
  * @constructor
  * @param {url} string.
@@ -41,6 +43,4 @@ export default class ApiWrapperService {
   private getApiUrl (url: string): string {
     return this.baseUrl + url;
   }
-
-
 }

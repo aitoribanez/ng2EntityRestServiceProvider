@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import ApiWrapperService from '../../../services/apiWrapper.service';
 import { Product } from '../../../entitys/product';
@@ -8,25 +9,22 @@ import { config } from './config';
   selector: 'product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
-  providers: [ApiWrapperService]
+  // providers: [ApiWrapperService, ProductsResolve]
 })
 
 export class ProductListComponent implements OnInit {
   title: string = 'app works!';
   public products: Array<Product>;
 
-  constructor(productService: ApiWrapperService) {
-    
-    productService
-      .get('products')
-      .subscribe(products => {
-        products.map(obj => { 
-          obj.collecttime = this._toString(obj.collecttime, config.es.months);
-          obj.seedtime = this._toString(obj.seedtime, config.es.months);
-        })
+  constructor(productService: ApiWrapperService, private route: ActivatedRoute) {
+    let products = this.route.snapshot.data['products'];
 
-        this.products = products
-      });  
+    products.map(obj => { 
+      obj.collecttime = this._toString(obj.collecttime, config.es.months);
+      obj.seedtime = this._toString(obj.seedtime, config.es.months);
+    })
+
+    this.products = products
   }
 
   ngOnInit() {
