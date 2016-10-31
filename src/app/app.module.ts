@@ -21,6 +21,7 @@ const routing = RouterModule.forRoot([
     { path: 'product', component: ProductListComponent, resolve: { products: ProductsResolve } },
     { path: 'product/new', component: ProductFormComponent },
     { path: 'product/edit/:id', component: ProductFormComponent, resolve: { product: ProductResolve } },
+    { path: 'product/destroy/:id', component: ProductFormComponent },
     { path: 'about', component: AboutComponent },
     { path: 'templatedriven1way', component: TemplateDrivenFormComponent },
     { path: 'templatedriven2way', component: TemplateDrivenForm2wayComponent },
@@ -46,7 +47,7 @@ const routing = RouterModule.forRoot([
     RouterModule,
     routing
   ],
-  providers: [ProductResolve, ProductsResolve, ApiWrapperService],
+  providers: [ProductResolve, ProductsResolve, ApiWrapperService, ProductFormComponent],
   bootstrap: [AppComponent]
 })
 

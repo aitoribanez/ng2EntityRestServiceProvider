@@ -31,9 +31,9 @@ export default class ApiWrapperService {
     return this.http.put(this.getApiUrl(url), JSON.stringify(data), this.options);
   }
 
-  /* destroy(url: string, data) { // product/1 OR product/asd18k -> uuid
+  destroy(url: string) {
     return this.http.delete(this.getApiUrl(url), this.options);
-  } */
+  }
 
  /**
  * Add baseUrl to sended url

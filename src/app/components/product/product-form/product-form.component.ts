@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UUID } from 'angular2-uuid';
@@ -9,7 +9,7 @@ import ApiWrapperService from '../../../services/apiWrapper.service';
 @Component({
   selector: 'product-form',
   templateUrl: './product-form.component.html',
-  styleUrls: ['./product-form.component.css']
+  styleUrls: ['./product-form.component.css'],
   // providers: [ApiWrapperService, ProductResolve]
 })
 
@@ -25,13 +25,27 @@ export class ProductFormComponent implements OnInit {
   constructor(private fb: FormBuilder, private route: ActivatedRoute,
   private router: Router, private productService: ApiWrapperService) {
 
-   this.type = Object.keys(this.route.snapshot.params).length > 0 ? "edit" : "add";
+   // this.type = Object.keys(this.route.snapshot.params).length > 0 ? "edit" : "add";
 
-   if (this.type !== 'add') {
-     this.formConfig(fb, this.route.snapshot.data['product'])
+   if (Object.keys(this.route.snapshot.params).length <= 0) {
+     this.type = 'add';
+     this.formConfig(fb, {});
+   } else if(window.location.pathname.indexOf('edit') !== -1){
+     this.type = 'edit';
+     this.formConfig(fb, this.route.snapshot.data['product']);
    } else {
-     this.formConfig(fb, {})
+     this.type = 'destroy';
+     // this.formConfig(fb, {});
    }
+console.log("tye", this.type);
+
+  /* if (this.type === 'edit') {
+     
+   } else if (this.type === 'add') {
+     
+   } else {
+     console.log("destroy");
+   } */
   }
 
   ngOnInit() {}
@@ -40,8 +54,15 @@ export class ProductFormComponent implements OnInit {
  * Can go to add or edit dependens on type
  */
   call() {
-    this.type !== 'add' ? this.edit() : this.add();
+    if(this.type === 'add') { this.add() }
+    else if(this.type === 'edit') { this.edit() }
+    else { this.destroy(this.route.snapshot.params['id']) }
   }
+
+/* pr(evt) {
+  console.log("prAAA")
+   this.productFormComponent.emit('e551fcb0-625a-4421-949d-17e3109e0342');
+} */
 
  /**
  * Save product on data store
@@ -49,7 +70,7 @@ export class ProductFormComponent implements OnInit {
   add() {
     this.productService.add('products', this.productForm.value) 
       .subscribe(product => {
-          toast('Product have been saved!', 5000)
+          toast('Product have been saved!', 5000);
           this.router.navigate(['/']);
         }
         // error =>  this.errorMessage = <any>error
@@ -62,8 +83,20 @@ export class ProductFormComponent implements OnInit {
   edit() {
     this.productService.update(`products/${this.route.snapshot.params['id']}`, this.productForm.value) 
       .subscribe(product => {
-          toast('Product have been updated!', 5000)
+          toast('Product have been updated!', 5000);
           this.router.navigate(['/']);
+        }
+        // error =>  this.errorMessage = <any>error
+      );
+  }
+
+  /**
+ * Destroy product on data store
+ */
+  destroy(id) {
+    this.productService.destroy(`products/${id}`)
+       .subscribe(product => {
+          toast('Product have been deleted!', 5000);
         }
         // error =>  this.errorMessage = <any>error
       );
