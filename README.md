@@ -12,6 +12,10 @@ Response is printed primarily on the screen.
 2. Install Angular CLI: `npm i angular-cli -g`
 3. From project root folder install all the dependencies: `npm i`
 
+## IDEA
+Un humano proporciona fichero JSON con los datos de las entidades y sus campos.
+La app crea la API y CRUD usando materializecss usando el fichero JSON proporcionado.
+
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
@@ -39,8 +43,6 @@ Run `ng github-pages:deploy` to deploy to Github Pages.
 ## Further help
 
 To get more help on the `angular-cli` use `ng --help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-
-## IDEA
 
 ## Avances dados para poder hacer el comando de la manera que angular-cli lo hace
 
