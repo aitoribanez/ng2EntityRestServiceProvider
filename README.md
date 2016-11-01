@@ -40,21 +40,40 @@ Run `ng github-pages:deploy` to deploy to Github Pages.
 
 To get more help on the `angular-cli` use `ng --help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
+## IDEA
 
-## CAMBIOS
+## Avances dados para poder hacer el comando de la manera que angular-cli lo hace
 
-angular-cli viene en la version 1.0.0-beta.17. Asi, al hacer un 
-ng new my-super-app da el siguiente error:
+- El command de generate (que es el que he usado para la investigacion) esta en
+*/node_modules/angular-cli/commands/generate.js*. He copiado ese fichero en la misma
+direccion con nombre *entity.js*, cambiado el *name* que aparece en ese fichero 
+por *entity* y en */node_modules/angular-cli/addon/index.js* en 
+*includedCommands* he añadido esta linea *'entity': require('../commands/entity').default*,
+Con estos tres cambios, ya tendriamos el comando de *ng generate component product* 
+funcionando en *ng generate entity entity product*. Genera los ficheros en base a lo que hay en 
+*/node_modules/angular/blueprints/entity/files*
 
+- Si queremos añadir una nueva variable para poder imprimirla o usarla en la vista.
+He seguido mirando como seria para el comando *ng generate. El "controlador" de la 
+generacion de contenido para el comando *ng entity* esta en */node_modules/angular-cli/blueprints/component/index.js*. 
+El array que devuelve el metodo *local*, son las variables que viajan a la vista. En nuestro ejemplo:
 
-npm ERR! git rev-list -n1 7e55907cd54a2e91b96d25a660acc6a2a6453f54: 
-fatal: bad object 7e55907cd54a2e91b96d25a660acc6a2a6453f54
+return {
+      dynamicPath: this.dynamicPath.dir.replace(this.dynamicPath.appRoot, ''),
+      flat: options.flat,
+      spec: options.spec,
+      inlineTemplate: options.inlineTemplate,
+      inlineStyle: options.inlineStyle,
+      route: options.route,
+      isAppComponent: !!options.isAppComponent,
+      selector: this.selector,
+      styleExt: this.styleExt,
+      custom: 'CUSTOM STRING'
+    };
 
-Se ha tenido que bajar la version de angular-cli a la version 1.0.0-beta.15
-para evitar dicho error. EL error es apartir de la version 1.0.0-beta.16
+*custom* se ha añadido para la prueba. En *node_modules/angular-cli/blueprints/component/files/__name__.component.ts*
+por ejemplo añadidos * <%= custom %>*.
 
-Issue creada por si les ayuda y nos aporta algo de informacion:
+## RELEASES
 
-https://github.com/angular/angular-cli/issues/2788
-
-Fixed apartir de la version 1.0.0-beta.18
+v0.3.0 -> CRUD funcionando manualmente para una entity (products)
