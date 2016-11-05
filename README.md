@@ -92,12 +92,12 @@ añadido comando nuevo de npm => *npm run updateNgBlueprint*
 
 ### Pasos a seguir para que el comando ng entity entity product funcione en un proyecto nuevo
 
-De momento como angular-cli no viene pensado para crear personalizados, hay que tocar el propio paquete
+De momento como angular-cli no viene pensado para crear comandos personalizados, hay que tocar el propio paquete
 de angular-cli de la siguiente manera:
 
 1. *npm run updateNgBlueprint*: Actualiza los blueprint que tenemos en 'local' (src/commands/blueprints)
-2. Ir a *node_modules/angular-cli/addon/index.js*, modificar *blueprintsPath*  por *return path.join(__dirname, '../blueprints');*
-*return path.join(__dirname, '../../../src/commands/blueprints');* (linea 16)
+2. Ir a *node_modules/angular-cli/addon/index.js*, modificar *blueprintsPath*  DE *return path.join(__dirname, '../blueprints');*
+a *return path.join(__dirname, '../../../src/commands/blueprints');* (linea 16)
 3. En *node_modules/angular-cli/addon/index.js* tambien, añadir en *includedCommands*, 
 *'entity': require('../../../src/commands/commands/entity').default,*
 
@@ -108,6 +108,7 @@ ES6-shim: Dentro de el esta el typing para el findIndex() -> typings install dt~
 ## RELEASES
 
 v0.3.0 -> CRUD funcionando manualmente para una entity (product)
+v0.4.0 -> Comango ng entity funcionando como se necesita
 
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
