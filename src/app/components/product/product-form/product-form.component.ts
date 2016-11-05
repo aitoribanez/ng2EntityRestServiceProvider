@@ -37,15 +37,8 @@ export class ProductFormComponent implements OnInit {
      this.type = 'destroy';
      // this.formConfig(fb, {});
    }
-console.log("tye", this.type);
+console.log('type', this.type);
 
-  /* if (this.type === 'edit') {
-     
-   } else if (this.type === 'add') {
-     
-   } else {
-     console.log("destroy");
-   } */
   }
 
   ngOnInit() {}
@@ -54,9 +47,9 @@ console.log("tye", this.type);
  * Can go to add or edit dependens on type
  */
   call() {
-    if(this.type === 'add') { this.add() }
-    else if(this.type === 'edit') { this.edit() }
-    else { this.destroy(this.route.snapshot.params['id']) }
+    if(this.type === 'add') { this.add(); }
+    else if(this.type === 'edit') { this.edit(); }
+    else { this.destroy(this.route.snapshot.params['id']); }
   }
 
 /* pr(evt) {
