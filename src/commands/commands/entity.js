@@ -6,7 +6,7 @@ var chalk = require('chalk');
 var EmberGenerateCommand = require('ember-cli/lib/commands/generate');
 var Blueprint = require('ember-cli/lib/models/blueprint');
 var SilentError = require('silent-error');
-var GenerateCommand = EmberGenerateCommand.extend({
+var EntityCommand = EmberGenerateCommand.extend({
     name: 'entity',
     beforeRun: function (rawArgs) {
         if (!rawArgs.length) {
@@ -32,11 +32,14 @@ var GenerateCommand = EmberGenerateCommand.extend({
             var output = '';
             blueprints
                 .forEach(function (bp) {
+                    console.log("bp", bp)
                 output += bp.printBasicHelp(false) + os.EOL;
             });
             this.ui.writeLine(chalk.cyan('  Available blueprints'));
             this.ui.writeLine(output);
         };
+        EmberGenerateCommand.prototype.beforeRun.apply(this, arguments)
+        
         return EmberGenerateCommand.prototype.beforeRun.apply(this, arguments);
     }
 });
@@ -55,6 +58,6 @@ var aliasMap = {
     's': 'service'
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = GenerateCommand;
-GenerateCommand.overrideCore = true;
+exports.default = EntityCommand;
+EntityCommand.overrideCore = true;
 //# sourceMappingURL=/usr/local/google/home/arick/angular-cli/packages/angular-cli/commands/generate.js.map 

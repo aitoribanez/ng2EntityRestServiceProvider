@@ -13,7 +13,7 @@ export default class ApiWrapperService {
 
   constructor(private http: Http) {}
 
-  //get all products
+  // get all products
   get(url: string):Observable<any> {
     return this.http.get(this.getApiUrl(url)).map(res => res.json());
   }

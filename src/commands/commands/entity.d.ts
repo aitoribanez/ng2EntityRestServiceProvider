@@ -1,2 +1,2 @@
-declare const GenerateCommand: any;
-export default GenerateCommand;
+declare const EntityCommand: any;
+export default EntityCommand;
