@@ -87,8 +87,12 @@ comando se le define su ruta en includedCommands.
 El inconveniente es que al *blueprint* solo admitir una ruta se han tenido que mover la carpeta node_modules/angular_cli/blueprint y
 node_modules/angular_cli/utils a src/commands.
 
-La solucion despues de probar con enlaces simbolicos que daba mas que nuevos errores, un simple cp valia. Se ha
+La solución, después de probar con enlaces simbolicos que daba mas que nuevos errores, un simple cp valía. Se ha
 añadido comando nuevo de npm => *npm run updateNgBlueprint*
+
+### Añadir plantillas(archivos) nuevas al blueprint
+
+Copiar la plantilla que se quiera usar dentro de blueprint/entity/files
 
 ### Pasos a seguir para que el comando ng entity entity product funcione en un proyecto nuevo
 
@@ -101,7 +105,7 @@ de angular-cli de la siguiente manera:
 3. En *node_modules/angular-cli/addon/index.js* tambien, añadir en *includedCommands*, 
 *'entity': require('../../../src/commands/commands/entity').default*~~
 
-(Esta solucíon no vale porque da un error de que no encuentra el módulo ast-utils de src/utilities/ast-utils.js.
+(Esta solución no vale porque da un error de que no encuentra el módulo ast-utils de src/utilities/ast-utils.js.
 No habido manera de solventarlo de una forma donde los blueprint esten en src/commands)
 
 1. Copiar *src/commands/blueprints/entity* a *node_modules/angular-cli/blueprints*
