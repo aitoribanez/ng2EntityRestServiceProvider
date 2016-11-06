@@ -108,9 +108,14 @@ de angular-cli de la siguiente manera:
 (Esta solución no vale porque da un error de que no encuentra el módulo ast-utils de src/utilities/ast-utils.js.
 No habido manera de solventarlo de una forma donde los blueprint esten en src/commands)
 
+~~1. Copiar *src/commands/blueprints/entity* a *node_modules/angular-cli/blueprints*
+2. En *node_modules/angular-cli/addon/index.js*, añadir en *includedCommands*, 
+*'entity': require('../../../src/commands/commands/entity').default*~~
+(Encontrada una manera más simple)
+
 1. Copiar *src/commands/blueprints/entity* a *node_modules/angular-cli/blueprints*
-2. En *node_modules/angular-cli/addon/index.js* tambien, añadir en *includedCommands*, 
-*'entity': require('../../../src/commands/commands/entity').default*
+2. En *node_modules/angular-cli/commands/generate.js*, al array *aliasMap*, añadir un nuevo elemento
+con *en* como clave y *entity* como valor.
 
 ## Typings
 
