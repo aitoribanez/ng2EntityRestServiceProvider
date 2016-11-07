@@ -37,6 +37,7 @@
     "@types/jasmine": "^2.2.35",
     "@types/node": "^6.0.42",
     "angular-cli": "1.0.0-beta.18",
+    "angular-cli-generate-entity": "github:aitoribanez/angular-cli-generate-entity",
     "codelyzer": "~0.0.26",
     "jasmine-core": "2.4.1",
     "jasmine-spec-reporter": "2.5.0",

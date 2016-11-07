@@ -111,11 +111,22 @@ No habido manera de solventarlo de una forma donde los blueprint esten en src/co
 ~~1. Copiar *src/commands/blueprints/entity* a *node_modules/angular-cli/blueprints*
 2. En *node_modules/angular-cli/addon/index.js*, añadir en *includedCommands*, 
 *'entity': require('../../../src/commands/commands/entity').default*~~
+
 (Encontrada una manera más simple)
 
-1. Copiar *src/commands/blueprints/entity* a *node_modules/angular-cli/blueprints*
-2. En *node_modules/angular-cli/commands/generate.js*, al array *aliasMap*, añadir un nuevo elemento
+~~1. Copiar *src/commands/blueprints/entity* a *node_modules/angular-cli/blueprints*
+2. En *node_modules/angular-cli/commands/generate.js*, al array *aliasMap*, añadir un nuevo elemento~~
 con *en* como clave y *entity* como valor.
+
+(Encontrada la forma correcta de hacerlo)
+
+Clonado https://github.com/IgorMinar/angular-cli-github-pages y modificando al gusto el comando
+https://github.com/aitoribanez/angular-cli-generate-entity para poder instalarlo directamente
+desde github/npm con *npm install --save-dev aitoribanez/angular-cli-generate-entity*! :-)
+
+- Clonar https://github.com/IgorMinar/angular-cli-github-pages que es un addon para angular-cli.
+- Cambiar el nombre comando en *index.js* dentro del metodo includedCommands()
+- Seguir modificando *lib/commands/entity.js* 
 
 ## Typings
 

@@ -15,9 +15,6 @@ import { CodeDrivenFormComponent } from './components/form/code-driven-form/code
 import { ProductResolve } from './components/product/product-form/product-resolve';
 import { ProductsResolve } from './components/product/product-list/products-resolve';
 import ApiWrapperService from './services/apiWrapper.service';
-import { ProductFormComponent } from './product-form/product-form.component';
-import { ProductListComponent } from './product-list/product-list.component';
-import { ProductComponent } from './product/product.component';
 
 const routing = RouterModule.forRoot([
     { path: '', redirectTo: 'product', pathMatch: 'full' },
@@ -39,12 +36,8 @@ const routing = RouterModule.forRoot([
     ProductFormComponent,
     TemplateDrivenFormComponent,
     TemplateDrivenForm2wayComponent,
- ,
-    ProductFormComponent   CodeDrivenFormComponent,
-    MaterializeDirective,
-    ProductFormComponent,
-    ProductListComponent,
-    ProductComponent
+    CodeDrivenFormComponent,
+    MaterializeDirective
   ],
   imports: [
     FormsModule,
