@@ -6,16 +6,16 @@ import { RouterModule } from '@angular/router';
 import { MaterializeDirective } from 'angular2-materialize';
 
 import { AppComponent } from './app.component';
-import { ProductListComponent } from './components/product/product-list/product-list.component';
+import { ProductListComponent } from './product/product-list/product-list.component';
 import { AboutComponent } from './components/about/about.component';
-import { ProductFormComponent } from './components/product/product-form/product-form.component';
+import { ProductFormComponent } from './product/product-form/product-form.component';
 import { TemplateDrivenFormComponent } from './components/form/template-driven-form/template-driven-form.component';
 import { TemplateDrivenForm2wayComponent } from './components/form/template-driven-form-2way/template-driven-form-2way.component';
 import { CodeDrivenFormComponent } from './components/form/code-driven-form/code-driven-form.component';
-import { ProductResolve } from './components/product/product-form/product-resolve';
-import { ProductsResolve } from './components/product/product-list/products-resolve';
+import { ProductResolve } from './product/product-form/product-resolve';
+import { ProductsResolve } from './product/product-list/products-resolve';
 import ApiWrapperService from './services/apiWrapper.service';
-import { ProductComponent } from './components/product/product.component';
+import { ProductComponent } from './product/product.component';
 
 const routing = RouterModule.forRoot([
     { path: '', redirectTo: 'product', pathMatch: 'full' },

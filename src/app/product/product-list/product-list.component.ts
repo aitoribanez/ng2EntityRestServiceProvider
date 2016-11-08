@@ -1,8 +1,8 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import ApiWrapperService from '../../../services/apiWrapper.service';
-import { Product } from '../../../entitys/product';
+import ApiWrapperService from '../../services/apiWrapper.service';
+import { Product } from '../../entitys/product';
 import { config } from './config';
 import { ProductFormComponent } from '../product-form/product-form.component';
 
