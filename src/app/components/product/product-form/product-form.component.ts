@@ -28,16 +28,15 @@ export class ProductFormComponent implements OnInit {
    // this.type = Object.keys(this.route.snapshot.params).length > 0 ? "edit" : "add";
 
    if (Object.keys(this.route.snapshot.params).length <= 0) {
-     this.type = 'add';
+     this.type = 'Add';
      this.formConfig(fb, {});
    } else if(window.location.pathname.indexOf('edit') !== -1){
-     this.type = 'edit';
+     this.type = 'Edit';
      this.formConfig(fb, this.route.snapshot.data['product']);
    } else {
-     this.type = 'destroy';
+     this.type = 'Destroy';
      // this.formConfig(fb, {});
    }
-console.log('type', this.type);
 
   }
 
@@ -47,15 +46,10 @@ console.log('type', this.type);
  * Can go to add or edit dependens on type
  */
   call() {
-    if(this.type === 'add') { this.add(); }
-    else if(this.type === 'edit') { this.edit(); }
+    if(this.type === 'Add') { this.add(); }
+    else if(this.type === 'Edit') { this.edit(); }
     else { this.destroy(this.route.snapshot.params['id']); }
   }
-
-/* pr(evt) {
-  console.log("prAAA")
-   this.productFormComponent.emit('e551fcb0-625a-4421-949d-17e3109e0342');
-} */
 
  /**
  * Save product on data store

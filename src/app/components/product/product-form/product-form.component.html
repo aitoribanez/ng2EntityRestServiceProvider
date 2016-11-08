@@ -35,5 +35,5 @@ characters min</div>
     <div *ngIf="collecttimeCtrl.dirty && collecttimeCtrl.hasError('required')">Collect time is required</div>
   </div>
 
-  <button type="submit" [disabled]="!productForm.valid">Register</button>
+  <button type="submit" [disabled]="!productForm.valid">{{ type }}</button>
 </form>
