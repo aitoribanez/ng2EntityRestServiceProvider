@@ -30,7 +30,7 @@ export class ProductListComponent implements OnInit {
       obj.seedtime = this._toString(obj.seedtime, config.es.months);
     })
 
-    this.products = products;
+    this.products = products.reverse();
   }
 
   delete(id) {
