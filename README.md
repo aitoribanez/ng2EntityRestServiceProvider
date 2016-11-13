@@ -18,7 +18,7 @@ Response is printed primarily on the screen.
 
 ## Añadir json como configuracion de la entity
 
-ng entity entity product ->
+ng generate:entity entity product ->
 - la configuración esta en /product.json
     {
       "entitys": [

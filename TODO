@@ -1,0 +1,8 @@
++++> CRUD funcionando sin fields y sin nada de backend.
+
+Queda:
+
+--> Fronted: 
+    - Seguir con los fields.
+    - Ir mejorando el modulo base product.
+--> Backend: Crear el index.js dependiendo del product.json dado.
