@@ -33,14 +33,14 @@ export class ProductListComponent implements OnInit {
     this.products = products.reverse();
   }
 
-  delete(id) {
+  /* delete(id) {
     this.productFormComponent.destroy(id);
 
    // let product =  this.products.filter(product => product.id == id)[0];
   // let index = this.products.indexOf(product);
     let index = this.products.findIndex(product => product.id === id);
     this.products.splice(index, 1);
-  }
+  } */
 
   ngOnInit() {
   }
