@@ -1,33 +1,41 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { environment } from '../../environments/environment';
+import { ProductModel } from '../product/datos.model';
 
 @Injectable()
 export default class ApiWrapperService {
   private baseUrl: string = environment.apiUrl;
   private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
   private options = new RequestOptions({ headers: this.headers });
+  // comunicación de eventos mediante observables
+  // private products$: Subject<ProductModel[]> = new Subject<ProductModel[]>();
 
-  constructor(private http: Http) {}
+  constructor(private http: Http) { }
 
   // get all products
-  get(url: string):Observable<any> {
+  get(url: string): Observable<any> {
     return this.http.get(this.getApiUrl(url)).map(res => res.json());
   }
+
+  /* getProducts$(): Observable<ProductModel[]> {
+    // se comporta como un observable
+    return this.products$.asObservable();
+  } */
 
   // get one product
-  one(url: string):Observable<any> {
+  one(url: string): Observable<any> {
     return this.http.get(this.getApiUrl(url)).map(res => res.json());
   }
 
-  add(url: string, data):Observable<any> {
+  add(url: string, data): Observable<any> {
     return this.http.post(this.getApiUrl(url), JSON.stringify(data), this.options);
   }
 
-  update(url: string, data):Observable<any> {  
+  update(url: string, data): Observable<any> {
     return this.http.put(this.getApiUrl(url), JSON.stringify(data), this.options);
   }
 
@@ -35,12 +43,12 @@ export default class ApiWrapperService {
     return this.http.delete(this.getApiUrl(url), this.options);
   }
 
- /**
- * Add baseUrl to sended url
- * @constructor
- * @param {url} string.
- */
-  private getApiUrl (url: string): string {
+  /**
+  * Add baseUrl to sended url
+  * @constructor
+  * @param {url} string.
+  */
+  private getApiUrl(url: string): string {
     return this.baseUrl + url;
   }
 }

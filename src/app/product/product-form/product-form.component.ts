@@ -26,9 +26,7 @@ export class ProductFormComponent implements OnInit {
   @Output() guardar: EventEmitter<Product> = new EventEmitter<Product>();
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute,
-    private router: Router, productService: ApiWrapperService) {
-      // productService añadido para los metodos add(), edit() y destroy(). CUando se 
-      // quiten de alli, eliminar esta inyección.
+    private router: Router) {
 
     // this.type = Object.keys(this.route.snapshot.params).length > 0 ? "edit" : "add";
 
@@ -48,7 +46,7 @@ export class ProductFormComponent implements OnInit {
   ngOnInit() {}
 
   guardarProducto() {
-    console.log(this.product);
+    console.log('PRDUCTt', this.product);
     this.guardar.emit(this.product);
   }
 

@@ -1,8 +1,8 @@
-import { Component, OnInit, Injectable } from '@angular/core';
+import { Component, OnInit, Injectable, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import ApiWrapperService from '../../services/apiWrapper.service';
-import { Product } from '../../entitys/product';
+import { Product, ProductModel } from '../datos.model';
 import { config } from './config';
 import { ProductFormComponent } from '../product-form/product-form.component';
 
@@ -16,45 +16,27 @@ import { ProductFormComponent } from '../product-form/product-form.component';
 @Injectable()
 export class ProductListComponent implements OnInit {
   title: string = 'app works!';
-  products: Array<any>;
-  productFormComponent: ProductFormComponent;
+  @Input('products') products: ProductModel[];
 
-  constructor(productService: ApiWrapperService, private route: ActivatedRoute,
-  productFormComponent: ProductFormComponent) {
-    this.productFormComponent = productFormComponent;
-
-    let products = this.route.snapshot.data['products'];
-
-    products.map(obj => { 
-      obj.collecttime = this._toString(obj.collecttime, config.es.months);
-      obj.seedtime = this._toString(obj.seedtime, config.es.months);
-    })
-
-    this.products = products.reverse();
-  }
-
-  /* delete(id) {
-    this.productFormComponent.destroy(id);
-
-   // let product =  this.products.filter(product => product.id == id)[0];
-  // let index = this.products.indexOf(product);
-    let index = this.products.findIndex(product => product.id === id);
-    this.products.splice(index, 1);
-  } */
+  constructor() { }
 
   ngOnInit() {
+    console.log('init', this.products);
+
+    /* this.products.map(obj => {
+      obj.collecttime = this._toString(obj.collecttime, config.es.months);
+      obj.seedtime = this._toString(obj.seedtime, config.es.months);
+    }) */
   }
 
-
-
- /**
+  /**
  * Number to String using an array. (jsdoc)
  * @constructor
  * @param {number} number.
  * @param {months} array.
  */
-  private _toString(number: number, months: Array<String>): String {
+  /* private _toString(number: number, months: Array<String>): String {
     return months[number - 1];
-  }
+  } */
 
 }

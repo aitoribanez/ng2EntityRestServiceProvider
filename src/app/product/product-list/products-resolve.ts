@@ -8,6 +8,6 @@ export class ProductsResolve implements Resolve<any> {
   constructor(private productService: ApiWrapperService) {}
 
   resolve(route: ActivatedRouteSnapshot) {
-    return this.productService.get('products');
+   // return this.productService.get('products');
   }  
 }
