@@ -12,7 +12,7 @@ export default class ApiWrapperService {
   private headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
   private options = new RequestOptions({ headers: this.headers });
   // comunicación de eventos mediante observables
-  // private products$: Subject<ProductModel[]> = new Subject<ProductModel[]>();
+  private products$: Subject<ProductModel[]> = new Subject<ProductModel[]>();
 
   constructor(private http: Http) { }
 
@@ -21,18 +21,23 @@ export default class ApiWrapperService {
     return this.http.get(this.getApiUrl(url)).map(res => res.json());
   }
 
-  /* getProducts$(): Observable<ProductModel[]> {
-    // se comporta como un observable
+  getProducts$(): Observable<ProductModel[]> {
     return this.products$.asObservable();
-  } */
+  }
 
   // get one product
   one(url: string): Observable<any> {
     return this.http.get(this.getApiUrl(url)).map(res => res.json());
   }
 
-  add(url: string, data): Observable<any> {
-    return this.http.post(this.getApiUrl(url), JSON.stringify(data), this.options);
+  add(url: string, data) {
+    let products = this.http.post(this.getApiUrl(url), JSON.stringify(data), this.options)
+    products.subscribe(ps => {
+      // dejo que siga corriendo por los strings de datos pasandole los
+      // los datos pasados por json
+      this.products$.next(ps.json())
+    },
+    error => console.log('productService.add() error'));
   }
 
   update(url: string, data): Observable<any> {

@@ -13,28 +13,29 @@ import { Product } from '../product/datos.model';
 export class ProductComponent implements OnInit {
   product: Product;
   products: Product[] = [];
-  // products$: Observable<Product[]>;
+  products$: Observable<Product[]>;
 
   constructor(private productService: ApiWrapperService) { }
 
   ngOnInit() {
     this.product = new Product('', 1, 1, '', 1);
     this.productService.get('products').subscribe(products => this.products = products.reverse());
-    // this.products$ = this.productService.getProducts$();
-    // this.products$.subscribe(d => this.products = d );
+    // da la foto del estado de this.products
+    this.products$ = this.productService.getProducts$();
+    // cuando un cambio en this.products entra aqui
+    this.products$.subscribe(product => {
+      product['data'] = product;
+      this.products.unshift(product['data'])
+    });
   }
 
   guardarProducto() {
-    console.log(`Guardando ${JSON.stringify(this.product)}`);
-    this.productService.add('products', this.product) // devuelve un Observable<Response>
-      .map((product) => product.json()) // devuelve un objeto
-      .subscribe(product => {
-        this.products.unshift(product);
-        toast('Product have been saved!', 5000);
+    console.log("Guardando", this.products);
+    this.productService.add('products', this.product);
 
-        // this.router.navigate(['/']);
-      },
-      error => console.log('componnent.guardarProducto() error'));
+    toast('Product have been saved!', 5000);
+
+    // this.router.navigate(['/']);
   }
 
 }
