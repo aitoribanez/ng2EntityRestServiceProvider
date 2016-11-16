@@ -18,7 +18,8 @@ export class ProductComponent implements OnInit {
   constructor(private productService: ApiWrapperService) { }
 
   ngOnInit() {
-    this.product = new Product('', 1, 1, '', 1);
+    this.product = new Product('custom', '', 1, 1, '', 1);
+
     this.productService.get('products').subscribe(products => this.products = products.reverse());
     // da la foto del estado de this.products
     this.products$ = this.productService.getProducts$();
@@ -30,12 +31,11 @@ export class ProductComponent implements OnInit {
   }
 
   guardarProducto() {
-    console.log("Guardando", this.products);
+    console.log('Guardando', this.products);
     this.productService.add('products', this.product);
 
     toast('Product have been saved!', 5000);
 
     // this.router.navigate(['/']);
   }
-
 }

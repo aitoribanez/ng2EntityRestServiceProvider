@@ -16,6 +16,7 @@ import { ProductResolve } from './product/product-form/product-resolve';
 import { ProductsResolve } from './product/product-list/products-resolve';
 import ApiWrapperService from './services/apiWrapper.service';
 import { ProductComponent } from './product/product.component';
+import { ProductDestroyComponent } from './product/product-destroy/product-destroy.component';
 
 const routing = RouterModule.forRoot([
     { path: '', redirectTo: 'product', pathMatch: 'full' },
@@ -23,7 +24,7 @@ const routing = RouterModule.forRoot([
     { path: 'product', component: ProductComponent, resolve: { products: ProductsResolve } },
     { path: 'product/new', component: ProductFormComponent },
     { path: 'product/edit/:id', component: ProductFormComponent, resolve: { product: ProductResolve } },
-    { path: 'product/destroy/:id', component: ProductFormComponent },
+    // { path: 'product/destroy/:id', component: ProductDestroyComponent },
     { path: 'about', component: AboutComponent },
     { path: 'templatedriven1way', component: TemplateDrivenFormComponent },
     { path: 'templatedriven2way', component: TemplateDrivenForm2wayComponent },
@@ -40,7 +41,8 @@ const routing = RouterModule.forRoot([
     TemplateDrivenFormComponent,
     TemplateDrivenForm2wayComponent,
     CodeDrivenFormComponent,
-    MaterializeDirective
+    MaterializeDirective,
+    ProductDestroyComponent
   ],
   imports: [
     FormsModule,

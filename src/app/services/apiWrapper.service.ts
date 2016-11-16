@@ -1,3 +1,4 @@
+import { Product } from './../product/datos.model';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Http, Headers, RequestOptions } from '@angular/http';
@@ -13,6 +14,7 @@ export default class ApiWrapperService {
   private options = new RequestOptions({ headers: this.headers });
   // comunicación de eventos mediante observables
   private products$: Subject<ProductModel[]> = new Subject<ProductModel[]>();
+  private productDestroy$: Subject<string> = new Subject<string>();
 
   constructor(private http: Http) { }
 
@@ -37,7 +39,7 @@ export default class ApiWrapperService {
       // los datos pasados por json
       this.products$.next(ps.json())
     },
-    error => console.log('productService.add() error'));
+      error => console.log('productService.add() error'));
   }
 
   update(url: string, data): Observable<any> {
@@ -45,8 +47,21 @@ export default class ApiWrapperService {
   }
 
   destroy(url: string) {
-    return this.http.delete(this.getApiUrl(url), this.options);
+    console.log("destroying", url);
+    // TODO: Deberia de devolver el objeto Product.
+    let product = this.http.delete(this.getApiUrl(url), this.options);
+    console.log("destroyed", product);
+    product.subscribe(unused => {
+      //  console.log("destroy", p.json());
+      this.productDestroy$.next(url);
+    },
+      error => console.log('productService.destroy() error'));
   }
+
+  destroyProduct$(): Observable<string> {
+    return this.productDestroy$.asObservable();
+  }
+
 
   /**
   * Add baseUrl to sended url

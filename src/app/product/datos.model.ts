@@ -30,6 +30,7 @@ export class Movimiento implements MovimientoModel {
 } */
 
 export interface ProductModel {
+  uuid: string;
   name: string;
   collecttime: number;
   seedtime: number;
@@ -39,6 +40,7 @@ export interface ProductModel {
 
 export class Product implements ProductModel {
   constructor(
+    public uuid: string,
     public name: string,
     public collecttime: number,
     public seedtime: number,
