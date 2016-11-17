@@ -15,6 +15,7 @@ export default class ApiWrapperService {
   // comunicación de eventos mediante observables
   private products$: Subject<ProductModel[]> = new Subject<ProductModel[]>();
   private productDestroy$: Subject<string> = new Subject<string>();
+  private productEdit$: Subject<ProductModel> = new Subject<ProductModel>();
 
   constructor(private http: Http) { }
 
@@ -42,8 +43,17 @@ export default class ApiWrapperService {
       error => console.log('productService.add() error'));
   }
 
-  update(url: string, data): Observable<any> {
-    return this.http.put(this.getApiUrl(url), JSON.stringify(data), this.options);
+  update(url: string, data) {
+    let product = this.http.put(this.getApiUrl(url), JSON.stringify(data), this.options)
+                    .map(res => res.json());
+    console.log("try to update", data);
+    product.subscribe(
+      () => { console.log("updated", data); this.productEdit$.next(data); }
+    )
+  }
+
+  updateProduct$(): Observable<ProductModel> {
+    return this.productEdit$.asObservable();
   }
 
   destroy(url: string) {

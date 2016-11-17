@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+  import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UUID } from 'angular2-uuid';
 import { toast } from 'angular2-materialize';
 
@@ -24,13 +24,14 @@ export class ProductFormComponent implements OnInit {
   type: string;
   @Input() product: Product;
   @Output() guardar: EventEmitter<Product> = new EventEmitter<Product>();
+  @Output() edit: EventEmitter<Product> = new EventEmitter<Product>();
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute,
     private router: Router) {
 
     // this.type = Object.keys(this.route.snapshot.params).length > 0 ? "edit" : "add";
 
-    if (Object.keys(this.route.snapshot.params).length <= 0) {
+    /* if (Object.keys(this.route.snapshot.params).length <= 0) {
       this.type = 'Add';
       this.formConfig(fb, {});
     } else if (window.location.pathname.indexOf('edit') !== -1) {
@@ -39,7 +40,7 @@ export class ProductFormComponent implements OnInit {
     } else {
       this.type = 'Destroy';
       // this.formConfig(fb, {});
-    }
+    } */
 
   }
 
@@ -48,58 +49,14 @@ export class ProductFormComponent implements OnInit {
   newProduct() {
     console.log('PRDUCTt', this.product);
     this.guardar.emit(this.product);
+    this.type = 'new';
   }
 
   editProduct() {
+    this.type = 'edit';
      console.log('PRDUCTto a editar', this.product);
+     this.edit.emit(this.product);
   }
-
-  /**
-  * Can go to add or edit dependens on type
-  */
-  /* call() {
-     if (this.type === 'Add') { this.add(); }
-     else if (this.type === 'Edit') { this.edit(); }
-     else { this.destroy(this.route.snapshot.params['id']); }
-   } */
-
-  /**
-  * Save product on data store
-  */
-  /*add() {
-    this.productService.add('products', this.productForm.value)
-      .subscribe(product => {
-        toast('Product have been saved!', 5000);
-        this.router.navigate(['/']);
-      }
-      // error =>  this.errorMessage = <any>error
-      );
-  } */
-
-  /**
-  * Edit product on data store
-  */
-  /* edit() {
-    this.productService.update(`products/${this.route.snapshot.params['id']}`, this.productForm.value)
-      .subscribe(product => {
-        toast('Product have been updated!', 5000);
-        this.router.navigate(['/']);
-      }
-      // error =>  this.errorMessage = <any>error
-      );
-  } */
-
-  /**
- * Destroy product on data store
- */
-  /* destroy(id) {
-    this.productService.destroy(`products/${id}`)
-      .subscribe(product => {
-        toast('Product have been deleted!', 5000);
-      }
-      // error =>  this.errorMessage = <any>error
-      );
-  } */
 
   /**
    * Form configuration:

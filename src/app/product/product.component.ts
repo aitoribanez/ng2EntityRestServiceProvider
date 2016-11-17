@@ -15,6 +15,7 @@ export class ProductComponent implements OnInit {
   product: Product;
   products: Product[] = [];
   products$: Observable<Product[]>;
+  productEdit$: Observable<Product>;
 
   constructor(private productService: ApiWrapperService) { }
 
@@ -28,6 +29,14 @@ export class ProductComponent implements OnInit {
     this.products$.subscribe(product => {
       product['data'] = product;
       this.products.unshift(product['data']);
+      this.product = this._productFromScratch();
+    });
+
+    this.productEdit$ = this.productService.updateProduct$();
+    this.productEdit$.subscribe(product => {
+      console.log('cambiando en UI', product);
+      let index = this.products.findIndex(product => product.uuid.toString() === this.product.uuid);
+      this.products.splice(index, 1, product);
       this.product = this._productFromScratch();
     });
   }
@@ -51,5 +60,11 @@ export class ProductComponent implements OnInit {
     this.productService.get(`products/${this.product.uuid}`).subscribe(
       (product) => { console.log('product to dit', product); this.product = product; }
     );
+  }
+
+  editProduct() {
+    console.log('editando en bbdd', this.product.uuid);
+    this.productService.update(`products/${this.product.uuid}`, this.product);
+    toast('Product have been updated!', 5000);
   }
 }
