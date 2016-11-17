@@ -45,9 +45,13 @@ export class ProductFormComponent implements OnInit {
 
   ngOnInit() {}
 
-  guardarProducto() {
+  newProduct() {
     console.log('PRDUCTt', this.product);
     this.guardar.emit(this.product);
+  }
+
+  editProduct() {
+     console.log('PRDUCTto a editar', this.product);
   }
 
   /**

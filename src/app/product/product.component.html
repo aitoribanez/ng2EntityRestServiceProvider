@@ -1,7 +1,9 @@
 <product-form 
   [product]="product" 
-  (guardar)="guardarProducto()">
+  (guardar)="newProduct()">
 </product-form>
 
 <product-list
-  [products]="products"></product-list>
+  [products]="products"
+  [product]="product"
+  (get)="getProduct()"></product-list>

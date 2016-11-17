@@ -33,8 +33,13 @@
   <div *ngIf="collecttimeCtrl.dirty && collecttimeCtrl.hasError('required')">Collect time is required</div>
 </div>
 
-<button type="submit" (click)="guardarProducto()">{{ type }}</button>
+<button type="submit" (click)="editProduct()">{{ type }}</button>
 
 <div>
   {{ product | json}}
 </div>
+
+<!--
+newProduct()
+editProduct()
+-->

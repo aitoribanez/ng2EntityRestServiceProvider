@@ -19,8 +19,9 @@ import { ProductFormComponent } from '../product-form/product-form.component';
 export class ProductListComponent implements OnInit {
   @Input('products') products: ProductModel[];
   @Input('product') product: ProductModel;
-  @Output() get: EventEmitter<string> = new EventEmitter<string>();
-  // @Output() uuid$: Observable<string>;
+
+  @Output() edit: EventEmitter<Product> = new EventEmitter<Product>();
+ // @Output() uuid$: Observable<string>;
 
   constructor(private productService: ApiWrapperService) { }
 
@@ -44,12 +45,6 @@ export class ProductListComponent implements OnInit {
     // this.router.navigate(['/']);
   }
 
-  getProduct(id) {
-    this.product.uuid = id;
-    console.log('emiting', id);
-    this.get.emit(id);
-  }
-
   /**
  * Number to String using an array. (jsdoc)
  * @constructor
@@ -60,4 +55,8 @@ export class ProductListComponent implements OnInit {
     return months[number - 1];
   } */
 
+  editProduct(id) {
+    console.log('emiting');
+    this.edit.emit(id);
+  }
 }
