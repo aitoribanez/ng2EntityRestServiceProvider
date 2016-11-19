@@ -12,6 +12,7 @@ import { Product } from '../product/datos.model';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
+  type: string;
   product: Product;
   products: Product[] = [];
   products$: Observable<Product[]>;
@@ -42,6 +43,7 @@ export class ProductComponent implements OnInit {
   }
 
   _productFromScratch() {
+    this.type = 'new';
     return new Product(UUID.UUID(), '', 1, 1, '', 1);
   }
 
@@ -56,7 +58,9 @@ export class ProductComponent implements OnInit {
   }
 
   getProduct() {
-    console.log('cambiando en bbdd', this.product.uuid);
+    this.type = 'edit';
+    console.log('type', this.type);
+    console.log('cambiando en bbdd', this);
     this.productService.get(`products/${this.product.uuid}`).subscribe(
       (product) => { console.log('product to dit', product); this.product = product; }
     );

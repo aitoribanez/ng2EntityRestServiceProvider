@@ -1,10 +1,10 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-  import { Router, ActivatedRoute, Params } from '@angular/router';
+// import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UUID } from 'angular2-uuid';
-import { toast } from 'angular2-materialize';
+// import { toast } from 'angular2-materialize';
 
-import ApiWrapperService from '../../services/apiWrapper.service';
+// import ApiWrapperService from '../../services/apiWrapper.service';
 import { Product } from '../datos.model';
 
 @Component({
@@ -21,41 +21,35 @@ export class ProductFormComponent implements OnInit {
   seedtimeCtrl: FormControl;
   collecttimeCtrl: FormControl;
   productForm: FormGroup;
-  type: string;
+  @Input() type: string;
   @Input() product: Product;
   @Output() guardar: EventEmitter<Product> = new EventEmitter<Product>();
   @Output() edit: EventEmitter<Product> = new EventEmitter<Product>();
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute,
-    private router: Router) {
+  constructor(private fb: FormBuilder) {}
 
-    // this.type = Object.keys(this.route.snapshot.params).length > 0 ? "edit" : "add";
+  ngOnInit() { }
 
-    /* if (Object.keys(this.route.snapshot.params).length <= 0) {
-      this.type = 'Add';
-      this.formConfig(fb, {});
-    } else if (window.location.pathname.indexOf('edit') !== -1) {
-      this.type = 'Edit';
-      this.formConfig(fb, this.route.snapshot.data['product']);
-    } else {
-      this.type = 'Destroy';
-      // this.formConfig(fb, {});
-    } */
-
+  call() {
+    this.formConfig(this.fb, {});
+    console.log('type', this.type);
+    if (this.type === 'new') {
+      // this.type = 'Add';
+      this.newProduct();
+    } else if (this.type === 'edit') {
+      // this.type = 'Edit';
+      this.editProduct();
+    }
   }
-
-  ngOnInit() {}
 
   newProduct() {
     console.log('PRDUCTt', this.product);
     this.guardar.emit(this.product);
-    this.type = 'new';
   }
 
   editProduct() {
-    this.type = 'edit';
-     console.log('PRDUCTto a editar', this.product);
-     this.edit.emit(this.product);
+    console.log('PRDUCTto a editar', this.product);
+    this.edit.emit(this.product);
   }
 
   /**

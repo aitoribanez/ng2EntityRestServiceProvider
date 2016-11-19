@@ -5,35 +5,35 @@
 <div>
   <label>Name</label>
   <input name="name" [(ngModel)]="product.name">
-  <div *ngIf="nameCtrl.dirty && nameCtrl.hasError('required')">Name is required</div>
-  <div *ngIf="nameCtrl.dirty && nameCtrl.hasError('minlength')">Name should be 4 characters min</div>
+  <!-- <div *ngIf="nameCtrl.dirty && nameCtrl.hasError('required')">Name is required</div>
+  <div *ngIf="nameCtrl.dirty && nameCtrl.hasError('minlength')">Name should be 4 characters min</div> -->
 </div>
 
 <div>
   <label>Photo</label>
   <input name="photo" [(ngModel)]="product.photo">
-  <div *ngIf="photoCtrl.dirty && photoCtrl.hasError('required')">Photo is required</div>
+  <!-- <div *ngIf="photoCtrl.dirty && photoCtrl.hasError('required')">Photo is required</div> -->
 </div>
 
 <div>
   <label>Difficulty</label>
   <input name="difficulty" [(ngModel)]="product.difficulty">
-  <div *ngIf="difficultyCtrl.dirty && difficultyCtrl.hasError('required')">Difficulty is required</div>
+  <!-- <div *ngIf="difficultyCtrl.dirty && difficultyCtrl.hasError('required')">Difficulty is required</div> -->
 </div>
 
 <div>
   <label>Seed time</label>
   <input name="seedtime" [(ngModel)]="product.seedtime">
-  <div *ngIf="seedtimeCtrl.dirty && seedtimeCtrl.hasError('required')">Seedtime is required</div>
+  <!-- <div *ngIf="seedtimeCtrl.dirty && seedtimeCtrl.hasError('required')">Seedtime is required</div> -->
 </div>
 
 <div>
   <label>Collect time</label>
   <input name="collecttime" [(ngModel)]="product.collecttime">
-  <div *ngIf="collecttimeCtrl.dirty && collecttimeCtrl.hasError('required')">Collect time is required</div>
+  <!-- <div *ngIf="collecttimeCtrl.dirty && collecttimeCtrl.hasError('required')">Collect time is required</div> -->
 </div>
 
-<button type="submit" (click)="editProduct()">{{ type }}</button>
+<button type="submit" (click)="call()">{{ type }}</button>
 
 <div>
   {{ product | json}}
