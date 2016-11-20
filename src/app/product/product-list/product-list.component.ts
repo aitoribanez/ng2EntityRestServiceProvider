@@ -1,12 +1,12 @@
-import { toast } from 'angular2-materialize';
-import { Observable } from 'rxjs';
+// import { toast } from 'angular2-materialize';
+// import { Observable } from 'rxjs';
 import { Component, OnInit, Injectable, Input, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+// import { ActivatedRoute } from '@angular/router';
 
 import ApiWrapperService from '../../services/apiWrapper.service';
-import { Product, ProductModel } from '../datos.model';
+import { ProductModel } from '../datos.model';
 import { config } from './config';
-import { ProductFormComponent } from '../product-form/product-form.component';
+// import { ProductFormComponent } from '../product-form/product-form.component';
 
 @Component({
   selector: 'product-list',
@@ -20,17 +20,11 @@ export class ProductListComponent implements OnInit {
   @Input('products') products: ProductModel[];
   @Input('product') product: ProductModel;
   @Output() get: EventEmitter<string> = new EventEmitter<string>();
-  // @Output() uuid$: Observable<string>;
+  @Output() destroy: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private productService: ApiWrapperService) { }
 
   ngOnInit() {
-    this.productService.destroyProduct$().subscribe(uuid => {
-      uuid = uuid.split('/')[1];
-      let index = this.products.findIndex(product => product.uuid.toString() === uuid);
-      this.products.splice(index, 1);
-    });
-
     /* this.products.map(obj => {
       obj.collecttime = this._toString(obj.collecttime, config.es.months);
       obj.seedtime = this._toString(obj.seedtime, config.es.months);
@@ -38,9 +32,9 @@ export class ProductListComponent implements OnInit {
   }
 
   destroyProduct(id) {
-    this.productService.destroy(`products/${id}`);
-    toast('Product have been deleted!', 5000);
-
+    this.product.uuid = id;
+    console.log('emitting destroy', id);
+    this.destroy.emit(id)
     // this.router.navigate(['/']);
   }
 

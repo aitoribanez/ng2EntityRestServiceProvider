@@ -45,7 +45,7 @@
 
             <div class="card-action">
               <a class="nav-item nav-link" (click)="getProduct(product.uuid)">Edit</a>
-              <product-destroy [uuid]="product.uuid" (destroy)="destroyProduct(product.uuid)"></product-destroy>
+              <a (click)="destroyProduct(product.uuid)">Delete</a>
             </div>
           </div>
         </div>        

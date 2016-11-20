@@ -17,6 +17,7 @@ export class ProductComponent implements OnInit {
   products: Product[] = [];
   products$: Observable<Product[]>;
   productEdit$: Observable<Product>;
+  productDestroy$: Observable<string>;
 
   constructor(private productService: ApiWrapperService) { }
 
@@ -40,6 +41,14 @@ export class ProductComponent implements OnInit {
       this.products.splice(index, 1, product);
       this.product = this._productFromScratch();
     });
+
+    this.productDestroy$ = this.productService.destroyProduct$();
+    this.productDestroy$.subscribe(uuid => {
+      console.log('cambiando en UI', uuid);
+      uuid = uuid.split('/')[1];
+      let index = this.products.findIndex(product => product.uuid.toString() === uuid);
+      this.products.splice(index, 1);
+    });
   }
 
   _productFromScratch() {
@@ -48,13 +57,9 @@ export class ProductComponent implements OnInit {
   }
 
   newProduct() {
-    // delete this.product.uuid;
     console.log('Guardando', this.product);
     this.productService.add('products', this.product);
-
     toast('Product have been saved!', 5000);
-
-    // this.router.navigate(['/']);
   }
 
   getProduct() {
@@ -62,7 +67,7 @@ export class ProductComponent implements OnInit {
     console.log('type', this.type);
     console.log('cambiando en bbdd', this);
     this.productService.get(`products/${this.product.uuid}`).subscribe(
-      (product) => { console.log('product to dit', product); this.product = product; }
+      product => this.product = product
     );
   }
 
@@ -70,5 +75,11 @@ export class ProductComponent implements OnInit {
     console.log('editando en bbdd', this.product.uuid);
     this.productService.update(`products/${this.product.uuid}`, this.product);
     toast('Product have been updated!', 5000);
+  }
+
+  destroyProduct() {
+    console.log('borrando en bbdd', this.product.uuid);
+    this.productService.destroy(`products/${this.product.uuid}`);
+    toast('Product have been deleted!', 5000);
   }
 }

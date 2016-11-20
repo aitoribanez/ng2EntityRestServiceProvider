@@ -14,8 +14,8 @@ export default class ApiWrapperService {
   private options = new RequestOptions({ headers: this.headers });
   // comunicación de eventos mediante observables
   private products$: Subject<ProductModel[]> = new Subject<ProductModel[]>();
-  private productDestroy$: Subject<string> = new Subject<string>();
   private productEdit$: Subject<ProductModel> = new Subject<ProductModel>();
+  private productDestroy$: Subject<string> = new Subject<string>();
 
   constructor(private http: Http) { }
 
@@ -45,7 +45,7 @@ export default class ApiWrapperService {
 
   update(url: string, data) {
     let product = this.http.put(this.getApiUrl(url), JSON.stringify(data), this.options)
-                    .map(res => res.json());
+      .map(res => res.json());
     console.log("try to update", data);
     product.subscribe(
       () => { console.log("updated", data); this.productEdit$.next(data); }
@@ -57,13 +57,14 @@ export default class ApiWrapperService {
   }
 
   destroy(url: string) {
-    console.log("destroying", url);
+    console.log('destroying', url);
     // TODO: Deberia de devolver el objeto Product.
     let product = this.http.delete(this.getApiUrl(url), this.options);
-    console.log("destroyed", product);
     product.subscribe(unused => {
+      console.log('apunto de borrar', url);
+    //  pr.uuid = 'asd';
       //  console.log("destroy", p.json());
-      this.productDestroy$.next(url);
+    this.productDestroy$.next(url);
     },
       error => console.log('productService.destroy() error'));
   }
