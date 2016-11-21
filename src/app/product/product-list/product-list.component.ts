@@ -3,7 +3,7 @@
 import { Component, OnInit, Injectable, Input, Output, EventEmitter } from '@angular/core';
 // import { ActivatedRoute } from '@angular/router';
 
-import ApiWrapperService from '../../services/apiWrapper.service';
+// import ApiWrapperService from '../../services/apiWrapper.service';
 import { ProductModel } from '../datos.model';
 import { config } from './config';
 // import { ProductFormComponent } from '../product-form/product-form.component';
@@ -22,7 +22,7 @@ export class ProductListComponent implements OnInit {
   @Output() get: EventEmitter<string> = new EventEmitter<string>();
   @Output() destroy: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private productService: ApiWrapperService) { }
+  constructor() { }
 
   ngOnInit() {
     /* this.products.map(obj => {
