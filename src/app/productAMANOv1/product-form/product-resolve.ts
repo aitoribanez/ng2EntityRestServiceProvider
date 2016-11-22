@@ -4,10 +4,12 @@ import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import ApiWrapperService from '../../services/apiWrapper.service';
 
 @Injectable()
-export class ProductsResolve implements Resolve<any> {
+export class ProductResolve implements Resolve<any> {
   constructor(private productService: ApiWrapperService) {}
 
   resolve(route: ActivatedRouteSnapshot) {
-   // return this.productService.get('products');
-  }  
+    return this.productService.one(`products/${route.params['id']}`);
+  }
+
+  
 }

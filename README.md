@@ -132,10 +132,6 @@ desde github/npm con *npm install --save-dev aitoribanez/angular-cli-generate-en
 
 ES6-shim: Dentro de el esta el typing para el findIndex() -> typings install dt~es6-shim --save --global
 
-## RELEASES
-
-v0.3.0 -> CRUD funcionando manualmente para una entity (product)
-
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 

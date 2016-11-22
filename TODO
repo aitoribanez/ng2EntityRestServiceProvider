@@ -2,7 +2,7 @@
 
 Queda:
 
---> Fronted: 
+--> Frontend: 
     - Seguir con los fields.
     - Ir mejorando el modulo base product.
 --> Backend: Crear el index.js dependiendo del product.json dado.
