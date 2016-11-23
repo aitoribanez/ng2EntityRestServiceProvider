@@ -16,32 +16,10 @@ Response is printed primarily on the screen.
 - Un humano proporciona un fichero JSON con los datos de las entidades y sus campos.
 - La app crea la API y CRUD usando materializecss y el fichero JSON proporcionado.
 
-## Añadir json como configuracion de la entity
+## Entity scaffolding. Use.
 
-ng generate:entity entity product ->
-- la configuración esta en /product.json
-    {
-      "entitys": [
-        {
-          name: 'product',
-          fields: [
-            id: { type:'string' },
-            name: { type:'string' },
-            photo: { type:'string' },
-            difficulty: { type:'number', min: 1, max: 5 },
-            seedtime: { type:'number', min: 1, max: 5 },
-            collecttime: { type:'number', min: 1, max: 5 }
-          ]
-        }
-      ]
-    }
-
-- la lee y crea el componente segun eso.
-
-## Entity scaffolding
-
-Run `npm run entity product` to generate a new product entity. 
-Wrapper para poder llamar más de una vez a *ng entity*.
+Run `ng generate:entity entity product` to generate a new product entity having a JSON file
+as *product.json* with content like *node_modules/angular-cli-generate-entity/product.json* file. 
 
 ## Avances dados para poder hacer el comando de la manera que angular-cli lo hace
 

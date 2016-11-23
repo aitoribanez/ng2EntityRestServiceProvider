@@ -40,7 +40,8 @@ const routing = RouterModule.forRoot([
     TemplateDrivenFormComponent,
     TemplateDrivenForm2wayComponent,
     CodeDrivenFormComponent,
-    MaterializeDirective
+    MaterializeDirective,
+    ProductComponent
   ],
   imports: [
     FormsModule,
