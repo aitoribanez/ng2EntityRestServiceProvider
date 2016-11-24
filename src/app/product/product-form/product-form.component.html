@@ -2,19 +2,7 @@
 
 <a class="btn" onclick="Materialize.toast('I am a toast', 4000)">Toast 1!</a>
 
-<div>
-      <label>Product</label>
-      <input type="text" name="product" class="style" required="required">
-    </div>
-    <div>
-      <label>Product</label>
-      <input type="text" name="product">
-    </div>
-    <div>
-      <label>Product</label>
-      <input type="text" name="product">
-    </div>
-    
+
 <form (ngSubmit)="call()" [formGroup]="productForm">
   <div>
     <label>Name</label>

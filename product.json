@@ -2,10 +2,11 @@
   "entitys": [
     {
       "name": "product",
+      "quantity": 21,
       "fields": {
-        "id": { "type": "string", "class": "style", "required": "required" },
-        "name": { "type": "string" },
-        "photo": { "type": "string" },
+        "uuid": { "type": "uuid", "class": "style", "required": "required" },
+        "name": { "type": "string", "class": "style", "required": "required"  },
+        "photo": { "type": "file" },
         "difficulty": { "type": "number", "min": 1, "max": 5 },
         "seedtime": { "type": "number", "min": 1, "max": 5 },
         "collecttime": { "type": "number", "min": 1, "max": 5 }
