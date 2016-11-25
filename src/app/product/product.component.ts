@@ -1,113 +1,85 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+// import { toast } from 'angular2-materialize';
 import { UUID } from 'angular2-uuid';
-import { toast } from 'angular2-materialize'
 
 import ApiWrapperService from '../services/apiWrapper.service';
+import { Product } from '../product/datos.model';
 
 @Component({
-  selector: 'product',
+  selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css'],
-  // providers: [ApiWrapperService, ProductResolve]
+  styleUrls: ['./product.component.css']
 })
-
 export class ProductComponent implements OnInit {
-  nameCtrl: FormControl;
-  photoCtrl: FormControl;
-  difficultyCtrl: FormControl;
-  seedtimeCtrl: FormControl;
-  collecttimeCtrl: FormControl;
-  productForm: FormGroup;
   type: string;
+  product: Product;
+  products: Product[] = [];
+  products$: Observable<Product[]>;
+  productEdit$: Observable<Product>;
+  productDestroy$: Observable<string>;
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute,
-  private router: Router, private productService: ApiWrapperService) {
+  constructor(private productService: ApiWrapperService) { }
 
-   if (Object.keys(this.route.snapshot.params).length <= 0) {
-     this.type = 'add';
-     this.formConfig(fb, {});
-   } else if(window.location.pathname.indexOf('edit') !== -1){
-     this.type = 'edit';
-     this.formConfig(fb, this.route.snapshot.data['product']);
-   } else {
-     this.type = 'destroy';
-     // this.formConfig(fb, {});
-   }
+  ngOnInit() {
+    this.product = this._productFromScratch();
 
-  }
+    this.productService.get('products').subscribe(products => this.products = products.reverse());
+    // da la foto del estado de this.products
+    this.products$ = this.productService.getProducts$();
+    // cuando un cambio en this.products entra aqui
+    this.products$.subscribe(product => {
+      product['data'] = product;
+      this.products.unshift(product['data']);
+      this.product = this._productFromScratch();
+    });
 
-  ngOnInit() {}
+    this.productEdit$ = this.productService.updateProduct$();
+    this.productEdit$.subscribe(product => {
+      console.log('cambiando en UI', product);
+      let index = this.products.findIndex(product => product.uuid.toString() === this.product.uuid);
+      this.products.splice(index, 1, product);
+      this.product = this._productFromScratch();
+    });
 
- /**
- * Can go to add or edit dependens on type
- */
-  call() {
-    if(this.type === 'add') { this.add() }
-    else if(this.type === 'edit') { this.edit() }
-    else { this.destroy(this.route.snapshot.params['id']) }
-  }
-
- /**
- * Save product on data store
- */
-  add() {
-    this.productService.add('products', this.productForm.value) 
-      .subscribe(product => {
-          toast('Product have been saved!', 5000);
-          this.router.navigate(['/']);
-        }
-        // error =>  this.errorMessage = <any>error
-      );
-  }
-
- /**
- * Edit product on data store
- */
-  edit() {
-    this.productService.update(`products/${this.route.snapshot.params['id']}`, this.productForm.value) 
-      .subscribe(product => {
-          toast('Product have been updated!', 5000);
-          this.router.navigate(['/']);
-        }
-        // error =>  this.errorMessage = <any>error
-      );
-  }
-
-  /**
- * Destroy product on data store
- */
-  destroy(id) {
-    this.productService.destroy(`products/${id}`)
-       .subscribe(product => {
-          toast('Product have been deleted!', 5000);
-        }
-        // error =>  this.errorMessage = <any>error
-      );
-  }
-
-/**
- * Form configuration:
- *   - Define controls
- *   - Define group
- */
-  formConfig(fb, productForm) {
-      this.nameCtrl = fb.control(productForm.name || '', Validators.compose([Validators.required, Validators
-.minLength(4)]));
-    this.photoCtrl = fb.control(productForm.photo || '', Validators.required);
-    this.difficultyCtrl = fb.control(productForm.difficulty || '', Validators.required);
-    this.seedtimeCtrl = fb.control(productForm.seedtime || '', Validators.required);
-    this.collecttimeCtrl = fb.control(productForm.collecttime || '', Validators.required);
-
-    this.productForm = fb.group({
-      id: UUID.UUID(),
-      name: this.nameCtrl,
-      photo: this.photoCtrl,
-      difficulty: this.difficultyCtrl,
-      seedtime: this.seedtimeCtrl,
-      collecttime: this.collecttimeCtrl
+    this.productDestroy$ = this.productService.destroyProduct$();
+    this.productDestroy$.subscribe(uuid => {
+      console.log('cambiando en UI', uuid);
+      uuid = uuid.split('/')[1];
+      let index = this.products.findIndex(product => product.uuid.toString() === uuid);
+      this.products.splice(index, 1);
     });
   }
 
+  _productFromScratch() {
+    this.type = 'new';
+    return new Product(UUID.UUID(), '', 1, 1, '', 1);
+  }
+
+  newProduct() {
+    console.log('Guardando', this.product);
+    this.productService.add('products', this.product);
+    // toast('Product have been saved!', 5000);
+  }
+
+  getProduct() {
+    this.type = 'edit';
+    console.log('type', this.type);
+    console.log('cambiando en bbdd', this);
+    this.productService.get(`products/${this.product.uuid}`).subscribe(
+      product => this.product = product
+    );
+  }
+
+  editProduct() {
+    console.log('editando en bbdd', this.product.uuid);
+    this.productService.update(`products/${this.product.uuid}`, this.product);
+    // toast('Product have been updated!', 5000);
+  }
+
+  destroyProduct() {
+    console.log('borrando en bbdd', this.product.uuid);
+    this.productService.destroy(`products/${this.product.uuid}`);
+    // toast('Product have been deleted!', 5000);
+  }
 }

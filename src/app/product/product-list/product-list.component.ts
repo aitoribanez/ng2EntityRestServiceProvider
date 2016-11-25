@@ -1,10 +1,12 @@
-import { Component, OnInit, Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+// import { toast } from 'angular2-materialize';
+// import { Observable } from 'rxjs';
+import { Component, OnInit, Injectable, Input, Output, EventEmitter } from '@angular/core';
+// import { ActivatedRoute } from '@angular/router';
 
-import ApiWrapperService from '../../services/apiWrapper.service';
-import { Product } from '../../entitys/product';
-// import { config } from './config';
-import { ProductFormComponent } from '../product-form/product-form.component';
+// import ApiWrapperService from '../../services/apiWrapper.service';
+import { ProductModel } from '../datos.model';
+import { config } from './config';
+// import { ProductFormComponent } from '../product-form/product-form.component';
 
 @Component({
   selector: 'product-list',
@@ -15,44 +17,41 @@ import { ProductFormComponent } from '../product-form/product-form.component';
 
 @Injectable()
 export class ProductListComponent implements OnInit {
-  title: string = 'app works!';
-  products: Array<any>;
-  productFormComponent: ProductFormComponent;
+  @Input('products') products: ProductModel[];
+  @Input('product') product: ProductModel;
+  @Output() get: EventEmitter<string> = new EventEmitter<string>();
+  @Output() destroy: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(productService: ApiWrapperService, private route: ActivatedRoute,
-  productFormComponent: ProductFormComponent) {
-    this.productFormComponent = productFormComponent;
-
-    let products = this.route.snapshot.data['products'];
-
-    products.map(obj => { 
-     // obj.collecttime = this._toString(obj.collecttime, config.es.months);
-     // obj.seedtime = this._toString(obj.seedtime, config.es.months);
-    })
-
-    this.products = products.reverse();
-  }
-
-  delete(id) {
-    this.productFormComponent.destroy(id);
-
-   // let product =  this.products.filter(product => product.id == id)[0];
-  // let index = this.products.indexOf(product);
-    let index = this.products.findIndex(product => product.id === id);
-    this.products.splice(index, 1);
-  }
+  constructor() { }
 
   ngOnInit() {
+    /* this.products.map(obj => {
+      obj.collecttime = this._toString(obj.collecttime, config.es.months);
+      obj.seedtime = this._toString(obj.seedtime, config.es.months);
+    }) */
   }
 
- /**
+  destroyProduct(id) {
+    this.product.uuid = id;
+    console.log('emitting destroy', id);
+    this.destroy.emit(id)
+    // this.router.navigate(['/']);
+  }
+
+  getProduct(id) {
+    this.product.uuid = id;
+    console.log('emiting', id);
+    this.get.emit(id);
+  }
+
+  /**
  * Number to String using an array. (jsdoc)
  * @constructor
  * @param {number} number.
  * @param {months} array.
  */
-  private _toString(number: number, months: Array<String>): String {
+  /* private _toString(number: number, months: Array<String>): String {
     return months[number - 1];
-  }
+  } */
 
 }

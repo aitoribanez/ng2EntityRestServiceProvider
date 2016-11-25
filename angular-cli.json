@@ -15,13 +15,11 @@
       "prefix": "",
       "mobile": false,
       "styles": [
-        "../node_modules/materialize-css/dist/css/materialize.min.css",
-        "styles.css"
+        "styles.css",
+        "../node_modules/primeng/resources/themes/omega/theme.css",
+        "../node_modules/primeng/resources/primeng.min.css"
       ],
-      "scripts": [
-        "../node_modules/jquery/dist/jquery.min.js",
-        "../node_modules/materialize-css/dist/js/materialize.min.js"
-      ],
+      "scripts": [],
       "environments": {
         "source": "environments/environment.ts",
         "dev": "environments/environment.ts",

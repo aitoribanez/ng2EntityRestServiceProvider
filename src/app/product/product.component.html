@@ -1,1 +1,16 @@
-<product-list></product-list>
+INICIO
+<input type="text" pInputText />
+FIN
+
+<product-form 
+  [product]="product"
+  [type]="type"
+  (guardar)="newProduct()"
+  (edit)="editProduct()">
+</product-form>
+
+<product-list
+  [products]="products"
+  [product]="product"
+  (get)="getProduct()"
+  (destroy)="destroyProduct()"></product-list>

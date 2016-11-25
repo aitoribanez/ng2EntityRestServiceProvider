@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { MaterializeDirective } from 'angular2-materialize';
 
 import { AppComponent } from './app.component';
 import { ProductListComponent } from './product/product-list/product-list.component';
@@ -16,6 +15,9 @@ import { ProductResolve } from './product/product-form/product-resolve';
 import { ProductsResolve } from './product/product-list/products-resolve';
 import ApiWrapperService from './services/apiWrapper.service';
 import { ProductComponent } from './product/product.component';
+
+// ngPrime components
+import { InputTextModule } from 'primeng/primeng';
 
 const routing = RouterModule.forRoot([
     { path: '', redirectTo: 'product', pathMatch: 'full' },
@@ -40,7 +42,6 @@ const routing = RouterModule.forRoot([
     TemplateDrivenFormComponent,
     TemplateDrivenForm2wayComponent,
     CodeDrivenFormComponent,
-    MaterializeDirective,
     ProductComponent
   ],
   imports: [
@@ -49,7 +50,8 @@ const routing = RouterModule.forRoot([
     BrowserModule,
     HttpModule,
     RouterModule,
-    routing
+    routing,
+    InputTextModule
   ],
   providers: [
     ProductResolve,

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { toast } from 'angular2-materialize';
+// import { toast } from 'angular2-materialize';
 import { UUID } from 'angular2-uuid';
 
 import ApiWrapperService from '../services/apiWrapper.service';
@@ -59,7 +59,7 @@ export class ProductComponent implements OnInit {
   newProduct() {
     console.log('Guardando', this.product);
     this.productService.add('products', this.product);
-    toast('Product have been saved!', 5000);
+    // toast('Product have been saved!', 5000);
   }
 
   getProduct() {
@@ -74,12 +74,12 @@ export class ProductComponent implements OnInit {
   editProduct() {
     console.log('editando en bbdd', this.product.uuid);
     this.productService.update(`products/${this.product.uuid}`, this.product);
-    toast('Product have been updated!', 5000);
+    // toast('Product have been updated!', 5000);
   }
 
   destroyProduct() {
     console.log('borrando en bbdd', this.product.uuid);
     this.productService.destroy(`products/${this.product.uuid}`);
-    toast('Product have been deleted!', 5000);
+    // toast('Product have been deleted!', 5000);
   }
 }
