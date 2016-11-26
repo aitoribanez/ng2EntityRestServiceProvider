@@ -2,6 +2,14 @@ INICIO
 <input type="text" pInputText />
 FIN
 
+<p-autoComplete
+  [(ngModel)]="text" 
+  [suggestions]="results" 
+  (completeMethod)="search($event)"
+  (onSelect)="select($event)"
+  [multiple]="true"
+></p-autoComplete>
+
 <product-form 
   [product]="product"
   [type]="type"

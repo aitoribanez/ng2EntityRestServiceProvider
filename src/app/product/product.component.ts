@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-// import { toast } from 'angular2-materialize';
+// import { toast } from 'angular2-  materialize';
 import { UUID } from 'angular2-uuid';
 
 import ApiWrapperService from '../services/apiWrapper.service';
@@ -19,7 +19,23 @@ export class ProductComponent implements OnInit {
   productEdit$: Observable<Product>;
   productDestroy$: Observable<string>;
 
+  text: string;
+  results: string[] = [];
+
   constructor(private productService: ApiWrapperService) { }
+
+  search(event) {
+    console.log('event', event.query);
+    this.productService.get('products')
+      .flatMap((results: Array<Product>) => results)
+      .map(products => products.name)
+      // .do(products => console.log('ANTES', products))
+      .subscribe(products => { console.log('products', products); this.results.push(products); });
+  }
+
+  select(event) {
+    console.log('event', event);
+  }
 
   ngOnInit() {
     this.product = this._productFromScratch();

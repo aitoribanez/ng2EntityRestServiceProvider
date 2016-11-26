@@ -18,6 +18,8 @@ import { ProductComponent } from './product/product.component';
 
 // ngPrime components
 import { InputTextModule } from 'primeng/primeng';
+import { AutoCompleteModule } from 'primeng/primeng';
+
 
 const routing = RouterModule.forRoot([
     { path: '', redirectTo: 'product', pathMatch: 'full' },
@@ -51,7 +53,8 @@ const routing = RouterModule.forRoot([
     HttpModule,
     RouterModule,
     routing,
-    InputTextModule
+    InputTextModule,
+    AutoCompleteModule
   ],
   providers: [
     ProductResolve,
