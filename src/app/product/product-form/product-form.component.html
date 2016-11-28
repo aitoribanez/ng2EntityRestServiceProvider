@@ -1,35 +1,51 @@
 <h2>{{ type }} product</h2>
 
+<input type="file" (change)="fileChangeEvent($event)" placeholder="Upload file..." />
+<button type="button" (click)="upload()">Upload</button>
+
 <!-- <a class="btn" onclick="Materialize.toast('I am a toast', 4000)">Toast 1!</a> -->
 
 <div>
-  <label>Name</label>
-  <input name="name" [(ngModel)]="product.name">
-  <!-- <div *ngIf="nameCtrl.dirty && nameCtrl.hasError('required')">Name is required</div>
+  <label style="color:grey;">UUID</label>
+  <input type="text" pInputText name="uuid" [(ngModel)]="product.uuid" disabled="true" [value]="product.uuid" size="35" />
+  <!-- <input name="name" [(ngModel)]="product.name">
+  <div *ngIf="nameCtrl.dirty && nameCtrl.hasError('required')">Name is required</div>
   <div *ngIf="nameCtrl.dirty && nameCtrl.hasError('minlength')">Name should be 4 characters min</div> -->
 </div>
 
 <div>
-  <label>Photo</label>
-  <input name="photo" [(ngModel)]="product.photo">
-  <!-- <div *ngIf="photoCtrl.dirty && photoCtrl.hasError('required')">Photo is required</div> -->
+  <label>Name</label>
+  <input type="text" pInputText name="name" [(ngModel)]="product.name" size="35" />
+  <!-- <input name="name" [(ngModel)]="product.name">
+  <div *ngIf="nameCtrl.dirty && nameCtrl.hasError('required')">Name is required</div>
+  <div *ngIf="nameCtrl.dirty && nameCtrl.hasError('minlength')">Name should be 4 characters min</div> -->
+</div>
+
+<div>
+  <label>Photo</label><!-- file -->
+  <p-fileUpload name="photo[]" url="http://localhost:3001/profile"></p-fileUpload>
+
+  <!-- <input name="photo" [(ngModel)]="product.photo">
+  <div *ngIf="photoCtrl.dirty && photoCtrl.hasError('required')">Photo is required</div> -->
 </div>
 
 <div>
   <label>Difficulty</label>
-  <input name="difficulty" [(ngModel)]="product.difficulty">
+  <input type="number" pInputText name="difficulty" [(ngModel)]="product.difficulty" min="1" max="5">
   <!-- <div *ngIf="difficultyCtrl.dirty && difficultyCtrl.hasError('required')">Difficulty is required</div> -->
 </div>
 
 <div>
   <label>Seed time</label>
-  <input name="seedtime" [(ngModel)]="product.seedtime">
-  <!-- <div *ngIf="seedtimeCtrl.dirty && seedtimeCtrl.hasError('required')">Seedtime is required</div> -->
+  <p-dropdown name="seedtime" [options]="months" [(ngModel)]="product.seedtime"></p-dropdown>
+  <!-- <input name="seedtime" [(ngModel)]="product.seedtime">
+  <div *ngIf="seedtimeCtrl.dirty && seedtimeCtrl.hasError('required')">Seedtime is required</div> -->
 </div>
 
 <div>
   <label>Collect time</label>
-  <input name="collecttime" [(ngModel)]="product.collecttime">
+  <p-dropdown name="collecttime" [options]="months" [(ngModel)]="product.collecttime" filter="true"></p-dropdown>
+  <!-- <input name="collecttime" [(ngModel)]="product.collecttime"> -->
   <!-- <div *ngIf="collecttimeCtrl.dirty && collecttimeCtrl.hasError('required')">Collect time is required</div> -->
 </div>
 

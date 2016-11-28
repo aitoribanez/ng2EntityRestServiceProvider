@@ -4,8 +4,8 @@
       "name": "product",
       "quantity": 21,
       "fields": {
-        "uuid": { "type": "uuid", "class": "style", "required": "required" },
-        "name": { "type": "string", "class": "style", "required": "required"  },
+        "uuid": { "type": "uuid", "class": "style", "required": "required", "hidden": "hidden" },
+        "name": { "type": "string", "class": "style", "required": "required", "size": 35 },
         "photo": { "type": "file" },
         "difficulty": { "type": "number", "min": 1, "max": 5 },
         "seedtime": { "type": "number", "min": 1, "max": 5 },

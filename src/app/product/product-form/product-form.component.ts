@@ -1,9 +1,10 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Http } from '@angular/http';
 // import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UUID } from 'angular2-uuid';
 // import { toast } from 'angular2-materialize';
-
+import { config } from '../config';
 // import ApiWrapperService from '../../services/apiWrapper.service';
 import { Product } from '../datos.model';
 
@@ -26,9 +27,32 @@ export class ProductFormComponent implements OnInit {
   @Output() guardar: EventEmitter<Product> = new EventEmitter<Product>();
   @Output() edit: EventEmitter<Product> = new EventEmitter<Product>();
 
-  constructor(private fb: FormBuilder) {}
+  filesToUpload: Array<File> = [];
+  months: any = [];
 
-  ngOnInit() { }
+  constructor(private fb: FormBuilder, private http: Http) {}
+
+  ngOnInit() {
+    config.es.months.map((month, x) => this.months.push({ label: month, value: x + 1 }));
+    // this.months.push({label: 'New York', value:{id: 1, name: 'New York', code: 'NY'}});
+  }
+
+  upload() {
+    const formData: any = new FormData();
+    const files: Array<File> = this.filesToUpload;
+
+    for (let i = 0; i < files.length; i++) {
+      formData.append("uploads[]", files[i], files[i].name);
+    }
+
+    this.http.post("http://localhost:3001/upload", formData)
+      .map((files) => files.json())
+      .subscribe((files) => console.log('files', files))
+  }
+
+  fileChangeEvent(fileInput: any) {
+    this.filesToUpload = <Array<File>>fileInput.target.files;
+  }
 
   call() {
     this.formConfig(this.fb, {});

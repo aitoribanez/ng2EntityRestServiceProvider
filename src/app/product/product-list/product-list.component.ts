@@ -5,7 +5,7 @@ import { Component, OnInit, Injectable, Input, Output, EventEmitter } from '@ang
 
 // import ApiWrapperService from '../../services/apiWrapper.service';
 import { ProductModel } from '../datos.model';
-import { config } from './config';
+// import { config } from '../config';
 // import { ProductFormComponent } from '../product-form/product-form.component';
 
 @Component({
