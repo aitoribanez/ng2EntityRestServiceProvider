@@ -22,11 +22,12 @@ export class ProductFormComponent implements OnInit {
   seedtimeCtrl: FormControl;
   collecttimeCtrl: FormControl;
   productForm: FormGroup;
-  error: string;
   @Input() type: string;
   @Input() product: Product;
+  @Input() error: string;
   @Output() guardar: EventEmitter<Product> = new EventEmitter<Product>();
   @Output() edit: EventEmitter<Product> = new EventEmitter<Product>();
+  @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('form') form;
 
   filesToUpload: Array<File> = [];
@@ -51,23 +52,31 @@ export class ProductFormComponent implements OnInit {
       .map(files => files.json())
       .subscribe(
         files => console.log('files', files),
-        err => { 
-          this.error = err._body.split('<br>')[0], 
-          this.form.nativeElement.reset() },
+        err => {
+          this.error = err._body.split('<br>')[0];
+          this.form.nativeElement.reset(); },
         () => this.form.nativeElement.reset()
       )
   }
-  
+
   fileChangeEvent(fileInput: any) {
+    console.log('fiel changing');
+    this.product.photo = fileInput.srcElement.files[0].name;
+
+    // this.change.emit(fileInput);
+    this.change.emit({ product: { photo: fileInput.srcElement.files[0].name }});
+  }
+
+  /* fileChangeEvent(fileInput: any) {
     this.filesToUpload = <Array<File>>fileInput.target.files;
     this.product.photo = fileInput.target.files[0]['name'];
-  }
+  } */
 
   call() {
     this.formConfig(this.fb, {});
     console.log('type', this.type);
 
-    this.upload();
+    // this.upload();
     if (this.type === 'new') {
       // this.type = 'Add';
       this.newProduct();
@@ -78,7 +87,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   newProduct() {
-    console.log('PRDUCTt', this.product);
+    console.log('PRDUCTt-->', this.product);
     this.guardar.emit(this.product);
   }
 

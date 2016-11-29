@@ -13,8 +13,10 @@ FIN
 <product-form 
   [product]="product"
   [type]="type"
+  [error]="error"
   (guardar)="newProduct()"
-  (edit)="editProduct()">
+  (edit)="editProduct()"
+  (change)="fileChangeEvent($event)">
 </product-form>
 
 <product-list

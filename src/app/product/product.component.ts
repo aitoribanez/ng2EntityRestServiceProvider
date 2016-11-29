@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { Http } from '@angular/http';
 // import { toast } from 'angular2-  materialize';
 import { UUID } from 'angular2-uuid';
 
@@ -18,11 +19,16 @@ export class ProductComponent implements OnInit {
   products$: Observable<Product[]>;
   productEdit$: Observable<Product>;
   productDestroy$: Observable<string>;
-
+  fileChange$: Observable<any>;
+  private fileChangeSubject$: Subject<any> = new Subject<any>();
   text: string;
   results: string[] = [];
 
-  constructor(private productService: ApiWrapperService) { }
+  filesToUpload: Array<File> = [];
+  error: string;
+  @ViewChild('form') form;
+
+  constructor(private productService: ApiWrapperService, private http: Http) { }
 
   search(event) {
     console.log('event', event.query);
@@ -65,6 +71,13 @@ export class ProductComponent implements OnInit {
       let index = this.products.findIndex(product => product.uuid.toString() === uuid);
       this.products.splice(index, 1);
     });
+
+    // this.fileChange$ = this.productService.fileChanger$();
+
+    // this.fileChange$.subscribe(data => {
+    // //   this.product.photo = 'a';
+    //   console.log('cambiando fichero', data);
+    // });
   }
 
   _productFromScratch() {
@@ -72,7 +85,34 @@ export class ProductComponent implements OnInit {
     return new Product(UUID.UUID(), '', 1, 1, '', 1);
   }
 
+  fileChangeEvent(data) {
+    console.log('file chage PADRE', data);
+     this.product.photo = data.name;
+   //  this.product.photo = data.srcElement.form[0]['files'][0]['name'];
+     this.filesToUpload = <Array<File>>data.name;
+  }
+
+  upload() {
+    const formData: any = new FormData();
+    const files: Array<File> = this.filesToUpload;
+
+    // for (let i = 0; i < files.length; i++) {
+    formData.append('uploads[]', files, files['name']);
+    // }
+
+    this.http.post('http://localhost:3001/upload', formData)
+      .map(files => files.json())
+      .subscribe(
+        files => console.log('files', files),
+        err => {
+          this.error = err._body.split('<br>')[0];
+        //  this.form.nativeElement.reset(); 
+        }
+        // () => this.form.nativeElement.reset() 
+      )
+  }
   newProduct() {
+    this.upload();
     console.log('Guardando', this.product);
     this.productService.add('products', this.product);
     // toast('Product have been saved!', 5000);
