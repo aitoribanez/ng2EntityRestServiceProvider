@@ -1,8 +1,5 @@
 <h2>{{ type }} product</h2>
 
-<input type="file" (change)="fileChangeEvent($event)" placeholder="Upload file..." />
-<button type="button" (click)="upload()">Upload</button>
-
 <!-- <a class="btn" onclick="Materialize.toast('I am a toast', 4000)">Toast 1!</a> -->
 
 <div>
@@ -23,7 +20,8 @@
 
 <div>
   <label>Photo</label><!-- file -->
-  <p-fileUpload name="photo[]" url="http://localhost:3001/profile"></p-fileUpload>
+  <!-- <p-fileUpload name="photo[]" url="http://localhost:3001/profile"></p-fileUpload> -->
+  <input type="file" (change)="fileChangeEvent($event)" placeholder="Upload file..." />
 
   <!-- <input name="photo" [(ngModel)]="product.photo">
   <div *ngIf="photoCtrl.dirty && photoCtrl.hasError('required')">Photo is required</div> -->
@@ -49,8 +47,8 @@
   <!-- <div *ngIf="collecttimeCtrl.dirty && collecttimeCtrl.hasError('required')">Collect time is required</div> -->
 </div>
 
+<!--<button type="submit" (click)="call()">{{ type }}</button>-->
 <button type="submit" (click)="call()">{{ type }}</button>
-
 <div>
   {{ product | json}}
 </div>

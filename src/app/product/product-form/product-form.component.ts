@@ -41,22 +41,25 @@ export class ProductFormComponent implements OnInit {
     const formData: any = new FormData();
     const files: Array<File> = this.filesToUpload;
 
-    for (let i = 0; i < files.length; i++) {
-      formData.append("uploads[]", files[i], files[i].name);
-    }
+    // for (let i = 0; i < files.length; i++) {
+    formData.append('uploads[]', files[0], files[0]['name']);
+    // }
 
-    this.http.post("http://localhost:3001/upload", formData)
-      .map((files) => files.json())
-      .subscribe((files) => console.log('files', files))
+    this.http.post('http://localhost:3001/upload', formData)
+      .map(files => files.json())
+      .subscribe(files => console.log('files', files))
   }
 
   fileChangeEvent(fileInput: any) {
     this.filesToUpload = <Array<File>>fileInput.target.files;
+    this.product.photo = fileInput.target.files[0]['name'];
   }
 
   call() {
     this.formConfig(this.fb, {});
     console.log('type', this.type);
+
+    this.upload();
     if (this.type === 'new') {
       // this.type = 'Add';
       this.newProduct();
