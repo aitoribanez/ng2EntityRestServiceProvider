@@ -1,6 +1,10 @@
 <h2>{{ type }} product</h2>
 
 <!-- <a class="btn" onclick="Materialize.toast('I am a toast', 4000)">Toast 1!</a> -->
+<div *ngIf="error">
+  <label>ERRORs:</label>
+  <p>{{ error }}</p>
+</div>
 
 <div>
   <label style="color:grey;">UUID</label>
@@ -18,14 +22,17 @@
   <div *ngIf="nameCtrl.dirty && nameCtrl.hasError('minlength')">Name should be 4 characters min</div> -->
 </div>
 
-<div>
-  <label>Photo</label><!-- file -->
-  <!-- <p-fileUpload name="photo[]" url="http://localhost:3001/profile"></p-fileUpload> -->
-  <input type="file" (change)="fileChangeEvent($event)" placeholder="Upload file..." />
+<form #form>
+  <div>
+    <label>Photo</label>
+    <!-- file -->
+    <!-- <p-fileUpload name="photo[]" url="http://localhost:3001/profile"></p-fileUpload> -->
+    <input type="file" (change)="fileChangeEvent($event)" placeholder="Upload file..." />
 
-  <!-- <input name="photo" [(ngModel)]="product.photo">
+    <!-- <input name="photo" [(ngModel)]="product.photo">
   <div *ngIf="photoCtrl.dirty && photoCtrl.hasError('required')">Photo is required</div> -->
-</div>
+  </div>
+</form>
 
 <div>
   <label>Difficulty</label>

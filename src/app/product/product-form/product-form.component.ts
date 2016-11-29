@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Http } from '@angular/http';
 // import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -22,10 +22,12 @@ export class ProductFormComponent implements OnInit {
   seedtimeCtrl: FormControl;
   collecttimeCtrl: FormControl;
   productForm: FormGroup;
+  error: string;
   @Input() type: string;
   @Input() product: Product;
   @Output() guardar: EventEmitter<Product> = new EventEmitter<Product>();
   @Output() edit: EventEmitter<Product> = new EventEmitter<Product>();
+  @ViewChild('form') form;
 
   filesToUpload: Array<File> = [];
   months: any = [];
@@ -47,9 +49,15 @@ export class ProductFormComponent implements OnInit {
 
     this.http.post('http://localhost:3001/upload', formData)
       .map(files => files.json())
-      .subscribe(files => console.log('files', files))
+      .subscribe(
+        files => console.log('files', files),
+        err => { 
+          this.error = err._body.split('<br>')[0], 
+          this.form.nativeElement.reset() },
+        () => this.form.nativeElement.reset()
+      )
   }
-
+  
   fileChangeEvent(fileInput: any) {
     this.filesToUpload = <Array<File>>fileInput.target.files;
     this.product.photo = fileInput.target.files[0]['name'];
