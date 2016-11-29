@@ -22,12 +22,11 @@ export class ProductFormComponent implements OnInit {
   seedtimeCtrl: FormControl;
   collecttimeCtrl: FormControl;
   productForm: FormGroup;
+  error: string;
   @Input() type: string;
   @Input() product: Product;
-  @Input() error: string;
   @Output() guardar: EventEmitter<Product> = new EventEmitter<Product>();
   @Output() edit: EventEmitter<Product> = new EventEmitter<Product>();
-  @Output() change: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('form') form;
 
   filesToUpload: Array<File> = [];
@@ -40,6 +39,7 @@ export class ProductFormComponent implements OnInit {
     // this.months.push({label: 'New York', value:{id: 1, name: 'New York', code: 'NY'}});
   }
 
+<<<<<<< HEAD
   // upload() {
   //   const formData: any = new FormData();
   //   const files: Array<File> = this.filesToUpload;
@@ -68,15 +68,37 @@ export class ProductFormComponent implements OnInit {
   }
 
   /* fileChangeEvent(fileInput: any) {
+=======
+  upload() {
+    const formData: any = new FormData();
+    const files: Array<File> = this.filesToUpload;
+
+    // for (let i = 0; i < files.length; i++) {
+    formData.append('uploads[]', files[0], files[0]['name']);
+    // }
+
+    this.http.post('http://localhost:3001/upload', formData)
+      .map(files => files.json())
+      .subscribe(
+        files => console.log('files', files),
+        err => { 
+          this.error = err._body.split('<br>')[0], 
+          this.form.nativeElement.reset() },
+        () => this.form.nativeElement.reset()
+      )
+  }
+  
+  fileChangeEvent(fileInput: any) {
+>>>>>>> parent of e0bc5dc... changes for file type
     this.filesToUpload = <Array<File>>fileInput.target.files;
     this.product.photo = fileInput.target.files[0]['name'];
-  } */
+  }
 
   call() {
     this.formConfig(this.fb, {});
     console.log('type', this.type);
 
-    // this.upload();
+    this.upload();
     if (this.type === 'new') {
       // this.type = 'Add';
       this.newProduct();
@@ -87,7 +109,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   newProduct() {
-    console.log('PRDUCTt-->', this.product);
+    console.log('PRDUCTt', this.product);
     this.guardar.emit(this.product);
   }
 

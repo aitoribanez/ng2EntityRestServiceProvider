@@ -16,7 +16,6 @@ export default class ApiWrapperService {
   private products$: Subject<ProductModel[]> = new Subject<ProductModel[]>();
   private productEdit$: Subject<ProductModel> = new Subject<ProductModel>();
   private productDestroy$: Subject<string> = new Subject<string>();
-  private fileChange$: Subject<any> = new Subject<any>();
 
   constructor(private http: Http) { }
 
@@ -39,7 +38,7 @@ export default class ApiWrapperService {
     products.subscribe(ps => {
       // dejo que siga corriendo por los strings de datos pasandole los
       // los datos pasados por json
-      this.products$.next(ps.json());
+      this.products$.next(ps.json())
     },
       error => console.log('productService.add() error'));
   }
@@ -47,9 +46,9 @@ export default class ApiWrapperService {
   update(url: string, data) {
     let product = this.http.put(this.getApiUrl(url), JSON.stringify(data), this.options)
       .map(res => res.json());
-    console.log('try to update', data);
+    console.log("try to update", data);
     product.subscribe(
-      () => { console.log('updated', data); this.productEdit$.next(data); }
+      () => { console.log("updated", data); this.productEdit$.next(data); }
     )
   }
 
@@ -63,21 +62,18 @@ export default class ApiWrapperService {
     let product = this.http.delete(this.getApiUrl(url), this.options);
     product.subscribe(unused => {
       console.log('apunto de borrar', url);
-      //  pr.uuid = 'asd';
+    //  pr.uuid = 'asd';
       //  console.log("destroy", p.json());
-      this.productDestroy$.next(url);
+    this.productDestroy$.next(url);
     },
       error => console.log('productService.destroy() error'));
   }
 
-  
   destroyProduct$(): Observable<string> {
     return this.productDestroy$.asObservable();
   }
 
-  fileChanger$() {
-    return this.fileChange$.asObservable();
-  }
+
   /**
   * Add baseUrl to sended url
   * @constructor
