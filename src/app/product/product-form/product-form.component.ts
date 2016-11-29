@@ -40,31 +40,31 @@ export class ProductFormComponent implements OnInit {
     // this.months.push({label: 'New York', value:{id: 1, name: 'New York', code: 'NY'}});
   }
 
-  upload() {
-    const formData: any = new FormData();
-    const files: Array<File> = this.filesToUpload;
+  // upload() {
+  //   const formData: any = new FormData();
+  //   const files: Array<File> = this.filesToUpload;
 
-    // for (let i = 0; i < files.length; i++) {
-    formData.append('uploads[]', files[0], files[0]['name']);
-    // }
+  //   // for (let i = 0; i < files.length; i++) {
+  //   formData.append('uploads[]', files[0], files[0]['name']);
+  //   // }
 
-    this.http.post('http://localhost:3001/upload', formData)
-      .map(files => files.json())
-      .subscribe(
-        files => console.log('files', files),
-        err => {
-          this.error = err._body.split('<br>')[0];
-          this.form.nativeElement.reset(); },
-        () => this.form.nativeElement.reset()
-      )
-  }
+  //   this.http.post('http://localhost:3001/upload', formData)
+  //     .map(files => files.json())
+  //     .subscribe(
+  //       files => console.log('files', files),
+  //       err => {
+  //         this.error = err._body.split('<br>')[0];
+  //         this.form.nativeElement.reset(); },
+  //       () => this.form.nativeElement.reset()
+  //     )
+  // }
 
   fileChangeEvent(fileInput: any) {
     console.log('fiel changing');
     this.product.photo = fileInput.srcElement.files[0].name;
 
     // this.change.emit(fileInput);
-    this.change.emit({ product: { photo: fileInput.srcElement.files[0].name }});
+    this.change.emit({ name: fileInput.srcElement.files[0].name });
   }
 
   /* fileChangeEvent(fileInput: any) {
