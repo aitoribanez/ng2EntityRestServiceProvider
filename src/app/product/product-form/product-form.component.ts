@@ -32,14 +32,41 @@ export class ProductFormComponent implements OnInit {
   filesToUpload: Array<File> = [];
   months: any = [];
 
-  constructor(private fb: FormBuilder, private http: Http) {}
+  msgs: any[] = [];
+  uploadedFiles: any[] = [];
+
+
+  constructor(private fb: FormBuilder, private http: Http) { }
 
   ngOnInit() {
     config.es.months.map((month, x) => this.months.push({ label: month, value: x + 1 }));
     // this.months.push({label: 'New York', value:{id: 1, name: 'New York', code: 'NY'}});
   }
 
-<<<<<<< HEAD
+  onUpload(event) {
+    const formData: any = new FormData();
+    console.log('onUpload', event.files);
+    for (let file of event.files) {
+      this.uploadedFiles.push(file);
+      formData.append('uploads[]', file, file.name);
+    }
+
+    // this.msgs = [];
+    this.msgs.push({ severity: 'info', summary: 'File Uploaded', detail: '' });
+
+    this.http.post('http://localhost:3001/upload', formData)
+      // .map(files => files.json())
+      .subscribe(
+        files => console.log('files', files),
+        err => {
+          // this.error = err._body.split('<br>')[0];
+          // this.form.nativeElement.reset();
+          console.log('ERROR', err);
+        },
+        // () => this.form.nativeElement.reset()
+      );
+  }
+
   // upload() {
   //   const formData: any = new FormData();
   //   const files: Array<File> = this.filesToUpload;
@@ -51,54 +78,25 @@ export class ProductFormComponent implements OnInit {
   //   this.http.post('http://localhost:3001/upload', formData)
   //     .map(files => files.json())
   //     .subscribe(
-  //       files => console.log('files', files),
-  //       err => {
-  //         this.error = err._body.split('<br>')[0];
-  //         this.form.nativeElement.reset(); },
-  //       () => this.form.nativeElement.reset()
+  //     files => console.log('files', files),
+  //     err => {
+  //       this.error = err._body.split('<br>')[0];
+  //       this.form.nativeElement.reset();
+  //     },
+  //     () => this.form.nativeElement.reset()
   //     )
   // }
 
-  fileChangeEvent(fileInput: any) {
-    console.log('fiel changing');
-    this.product.photo = fileInput.srcElement.files[0].name;
-
-    // this.change.emit(fileInput);
-    this.change.emit({ name: fileInput.srcElement.files[0].name });
-  }
-
-  /* fileChangeEvent(fileInput: any) {
-=======
-  upload() {
-    const formData: any = new FormData();
-    const files: Array<File> = this.filesToUpload;
-
-    // for (let i = 0; i < files.length; i++) {
-    formData.append('uploads[]', files[0], files[0]['name']);
-    // }
-
-    this.http.post('http://localhost:3001/upload', formData)
-      .map(files => files.json())
-      .subscribe(
-        files => console.log('files', files),
-        err => { 
-          this.error = err._body.split('<br>')[0], 
-          this.form.nativeElement.reset() },
-        () => this.form.nativeElement.reset()
-      )
-  }
-  
-  fileChangeEvent(fileInput: any) {
->>>>>>> parent of e0bc5dc... changes for file type
-    this.filesToUpload = <Array<File>>fileInput.target.files;
-    this.product.photo = fileInput.target.files[0]['name'];
-  }
+  // fileChangeEvent(fileInput: any) {
+  //   this.filesToUpload = <Array<File>>fileInput.target.files;
+  //   this.product.photo = fileInput.target.files[0]['name'];
+  // }
 
   call() {
     this.formConfig(this.fb, {});
     console.log('type', this.type);
 
-    this.upload();
+    // this.upload();
     if (this.type === 'new') {
       // this.type = 'Add';
       this.newProduct();
