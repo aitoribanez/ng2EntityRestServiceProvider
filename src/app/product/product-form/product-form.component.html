@@ -6,64 +6,53 @@
   <p>{{ error }}</p>
 </div>
 
-<div>
-  <label style="color:grey;">UUID</label>
-  <input type="text" pInputText name="uuid" [(ngModel)]="product.uuid" disabled="true" [value]="product.uuid" size="35" />
-  <!-- <input name="name" [(ngModel)]="product.name">
-  <div *ngIf="nameCtrl.dirty && nameCtrl.hasError('required')">Name is required</div>
-  <div *ngIf="nameCtrl.dirty && nameCtrl.hasError('minlength')">Name should be 4 characters min</div> -->
-</div>
-
+<form [formGroup]="productForm">
 <div>
   <label>Name</label>
-  <input type="text" pInputText name="name" [(ngModel)]="product.name" size="35" />
-  <!-- <input name="name" [(ngModel)]="product.name">
+  <input type="text" name="name" size="35" formControlName="name" [(ngModel)]="product.name" required minlength="3"/>
+  
   <div *ngIf="nameCtrl.dirty && nameCtrl.hasError('required')">Name is required</div>
-  <div *ngIf="nameCtrl.dirty && nameCtrl.hasError('minlength')">Name should be 4 characters min</div> -->
+  <div *ngIf="nameCtrl.dirty && nameCtrl.hasError('minlength')">Name should be 4 characters min</div>
 </div>
 
-<form #form>
-  <div>
-    <label>Photo</label>
-    <!-- file -->
-    <!--<p-fileUpload name="photo[]" url="http://localhost:3001/upload" (onUpload)="onUpload($event)" maxFileSize="100000000000"></p-fileUpload>-->
-    <!-- <input type="file" (change)="fileChangeEvent($event)" placeholder="Upload file..." /> -->
 
-    <!-- <input name="photo" [(ngModel)]="product.photo">
-  <div *ngIf="photoCtrl.dirty && photoCtrl.hasError('required')">Photo is required</div> -->
+<div>
+  <label>Photo</label>
+  <!-- <input type="file" (change)="fileChangeEvent($event)" placeholder="Upload file..." /> -->
+  <!--<div *ngIf="photoCtrl.dirty && photoCtrl.hasError('required')">Photo is required</div>-->
 
-    <p-fileUpload name="photo[]" url="http://localhost:3001/upload" (onUpload)="onUpload($event)" maxFileSize="1000000">
-      <template pTemplate type="content">
-        <ul *ngIf="uploadedFiles.length">
-          <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
-        </ul>
-      </template>
-    </p-fileUpload>
-  </div>
-</form>
+  <p-fileUpload name="photo[]" #photo url="http://localhost:3001/upload" (onUpload)="onUpload($event)" maxFileSize="5000000">
+    <template pTemplate type="content">
+      <ul *ngIf="uploadedFiles.length">
+        <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+      </ul>
+    </template>
+  </p-fileUpload>
+</div>
 
 <div>
   <label>Difficulty</label>
-  <input type="number" pInputText name="difficulty" [(ngModel)]="product.difficulty" min="1" max="5">
-  <!-- <div *ngIf="difficultyCtrl.dirty && difficultyCtrl.hasError('required')">Difficulty is required</div> -->
+  <input type="number" pInputText name="difficulty" formControlName="difficulty" [(ngModel)]="product.difficulty" min="1" max="5">
+  <div *ngIf="difficultyCtrl.dirty && difficultyCtrl.hasError('required')">Difficulty is required</div>
 </div>
 
 <div>
   <label>Seed time</label>
-  <p-dropdown name="seedtime" [options]="months" [(ngModel)]="product.seedtime"></p-dropdown>
-  <!-- <input name="seedtime" [(ngModel)]="product.seedtime">
-  <div *ngIf="seedtimeCtrl.dirty && seedtimeCtrl.hasError('required')">Seedtime is required</div> -->
+  <p-dropdown name="seedtime" [options]="months" formControlName="seedtime" [(ngModel)]="product.seedtime"></p-dropdown>
+  <!-- <input name="seedtime" [(ngModel)]="product.seedtime"> -->
+  <div *ngIf="seedtimeCtrl.dirty && seedtimeCtrl.hasError('required')">Seedtime is required</div>
 </div>
 
 <div>
   <label>Collect time</label>
-  <p-dropdown name="collecttime" [options]="months" [(ngModel)]="product.collecttime" filter="true"></p-dropdown>
-  <!-- <input name="collecttime" [(ngModel)]="product.collecttime"> -->
-  <!-- <div *ngIf="collecttimeCtrl.dirty && collecttimeCtrl.hasError('required')">Collect time is required</div> -->
+  <p-dropdown name="collecttime" [options]="months" formControlName="collecttime" [(ngModel)]="product.collecttime" filter="true"></p-dropdown>
+   <!--<input name="collecttime" [(ngModel)]="product.collecttime">-->
+  <div *ngIf="collecttimeCtrl.dirty && collecttimeCtrl.hasError('required')">Collect time is required</div> 
 </div>
+</form>
 
 <!--<button type="submit" (click)="call()">{{ type }}</button>-->
-<button type="submit" (click)="call()">{{ type }}</button>
+<button type="submit" (click)="call()" [disabled]="!productForm.valid">{{ type }}</button>
 <div>
   {{ product | json}}
 </div>

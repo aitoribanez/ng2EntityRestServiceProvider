@@ -22,25 +22,37 @@ export class ProductFormComponent implements OnInit {
   seedtimeCtrl: FormControl;
   collecttimeCtrl: FormControl;
   productForm: FormGroup;
-  error: string;
+  // error: string;
   @Input() type: string;
   @Input() product: Product;
   @Output() guardar: EventEmitter<Product> = new EventEmitter<Product>();
   @Output() edit: EventEmitter<Product> = new EventEmitter<Product>();
-  @ViewChild('form') form;
+  // @ViewChild('form') form;
 
-  filesToUpload: Array<File> = [];
+  // filesToUpload: Array<File> = [];
   months: any = [];
 
   msgs: any[] = [];
   uploadedFiles: any[] = [];
-
 
   constructor(private fb: FormBuilder, private http: Http) { }
 
   ngOnInit() {
     config.es.months.map((month, x) => this.months.push({ label: month, value: x + 1 }));
     // this.months.push({label: 'New York', value:{id: 1, name: 'New York', code: 'NY'}});
+    this.nameCtrl = this.fb.control(this.product.name || '', Validators.compose([Validators.required, Validators.minLength(4)]));
+    //   this.photoCtrl = this.fb.control(this.product.photo || '', Validators.required);
+    this.difficultyCtrl = this.fb.control(this.product.difficulty || '', Validators.required);
+    this.seedtimeCtrl = this.fb.control(this.product.seedtime || '', Validators.required);
+    this.collecttimeCtrl = this.fb.control(this.product.collecttime || '', Validators.required);
+
+    this.productForm = this.fb.group({
+      name: this.nameCtrl,
+      //     photo: this.photoCtrl,
+      difficulty: this.difficultyCtrl,
+      seedtime: this.seedtimeCtrl,
+      collecttime: this.collecttimeCtrl
+    });
   }
 
   onUpload(event) {
@@ -49,22 +61,10 @@ export class ProductFormComponent implements OnInit {
     for (let file of event.files) {
       this.uploadedFiles.push(file);
       formData.append('uploads[]', file, file.name);
+      this.product.photo = file.name;
     }
 
-    // this.msgs = [];
     this.msgs.push({ severity: 'info', summary: 'File Uploaded', detail: '' });
-
-    this.http.post('http://localhost:3001/upload', formData)
-      // .map(files => files.json())
-      .subscribe(
-        files => console.log('files', files),
-        err => {
-          // this.error = err._body.split('<br>')[0];
-          // this.form.nativeElement.reset();
-          console.log('ERROR', err);
-        },
-        // () => this.form.nativeElement.reset()
-      );
   }
 
   // upload() {
@@ -93,7 +93,7 @@ export class ProductFormComponent implements OnInit {
   // }
 
   call() {
-    this.formConfig(this.fb, {});
+    // this.formConfig(this.fb, {});
     console.log('type', this.type);
 
     // this.upload();
@@ -115,28 +115,4 @@ export class ProductFormComponent implements OnInit {
     console.log('PRDUCTto a editar', this.product);
     this.edit.emit(this.product);
   }
-
-  /**
-   * Form configuration:
-   *   - Define controls
-   *   - Define group
-   */
-  formConfig(fb, productForm) {
-    this.nameCtrl = fb.control(productForm.name || '', Validators.compose([Validators.required, Validators
-      .minLength(4)]));
-    this.photoCtrl = fb.control(productForm.photo || '', Validators.required);
-    this.difficultyCtrl = fb.control(productForm.difficulty || '', Validators.required);
-    this.seedtimeCtrl = fb.control(productForm.seedtime || '', Validators.required);
-    this.collecttimeCtrl = fb.control(productForm.collecttime || '', Validators.required);
-
-    this.productForm = fb.group({
-      id: UUID.UUID(),
-      name: this.nameCtrl,
-      photo: this.photoCtrl,
-      difficulty: this.difficultyCtrl,
-      seedtime: this.seedtimeCtrl,
-      collecttime: this.collecttimeCtrl
-    });
-  }
-
 }
