@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-// import { toast } from 'angular2-  materialize';
 import { UUID } from 'angular2-uuid';
 
 import ApiWrapperService from '../services/apiWrapper.service';
@@ -19,8 +18,9 @@ export class ProductComponent implements OnInit {
   productEdit$: Observable<Product>;
   productDestroy$: Observable<string>;
 
-  text: string;
+  // text: string;
   results: string[] = [];
+  msgs: any[] = [];
 
   constructor(private productService: ApiWrapperService) { }
 
@@ -75,7 +75,7 @@ export class ProductComponent implements OnInit {
   newProduct() {
     console.log('Guardando', this.product);
     this.productService.add('products', this.product);
-    // toast('Product have been saved!', 5000);
+    this.msgs.push({ severity: 'success', summary: 'Product', detail: `new added ${this.product.name}` });
   }
 
   getProduct() {
@@ -90,12 +90,12 @@ export class ProductComponent implements OnInit {
   editProduct() {
     console.log('editando en bbdd', this.product.uuid);
     this.productService.update(`products/${this.product.uuid}`, this.product);
-    // toast('Product have been updated!', 5000);
+    this.msgs.push({ severity: 'success', summary: 'Product', detail: `edited ${this.product.name}` });
   }
 
   destroyProduct() {
     console.log('borrando en bbdd', this.product.uuid);
     this.productService.destroy(`products/${this.product.uuid}`);
-    // toast('Product have been deleted!', 5000);
+    this.msgs.push({ severity: 'success', summary: 'Product', detail: `deleted ${this.product.name}` });
   }
 }

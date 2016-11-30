@@ -64,7 +64,7 @@ export class ProductFormComponent implements OnInit {
       this.product.photo = file.name;
     }
 
-    this.msgs.push({ severity: 'info', summary: 'File Uploaded', detail: '' });
+    this.msgs.push({ severity: 'success', summary: 'File Uploaded', detail: '' });
   }
 
   // upload() {

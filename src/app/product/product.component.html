@@ -1,7 +1,3 @@
-INICIO
-<input type="text" pInputText />
-FIN
-
 <p-autoComplete
   [(ngModel)]="text" 
   [suggestions]="results" 
@@ -9,6 +5,8 @@ FIN
   (onSelect)="select($event)"
   [multiple]="true"
 ></p-autoComplete>
+
+<p-growl [value]="msgs"></p-growl>
 
 <product-form 
   [product]="product"
