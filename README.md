@@ -1,3 +1,8 @@
+- que se liste bien el producto al crear uno nuevo. solo imagenes permitidas en cliente (hecho!) y servidor.
+- edicion de producto tema foto. que se visualizen al cargar la edicion. Si edita sin cambiar foto, nada.
+si cambia la foto, borra una y copiar otra y si solo borra, borrar fichero.
+- borrado de producto, borrar fichero.
+
 # MacetoHuertoApp
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.18.

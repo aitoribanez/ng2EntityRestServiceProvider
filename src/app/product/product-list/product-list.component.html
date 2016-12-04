@@ -1,54 +1,46 @@
 <div class="row">
-    <h2>Products</h2>
-    <small class="right">
+  <h2>Products</h2>
+  <small class="right">
       <a [routerLink]="['/product/new']" class="nav-item nav-link">
         <i class="fa fa-info-circle"></i> New product
       </a>
-    </small>
+    </small> 
     {{ title }}
-     <ul>
-      <li *ngFor="let product of products">
-        <div class="col s12 m6 l6">
-        <!-- UNO -->
-        <div class="card">
-            <div class="card-image">
-              <a href="/products/{{ product.uuid}}"><img src="/assets/{{ product.photo }}"></a>
-              <span class="card-header-right">
-                 <i class="material-icons dp48" alt="Dificultad 1" title="Dificultad 1">star</i>
-                 <i class="material-icons dp48" alt="Dificultad 2" title="Dificultad 2">star</i>
-                 <i class="material-icons dp48" alt="Dificultad 3" title="Dificultad 3">star</i>
-                 <i class="material-icons dp48" alt="Dificultad 4" title="Dificultad 4">star</i>
-                 <i class="material-icons dp48" alt="Dificultad 5" title="Dificultad 5">star</i>
-              </span>
-              <span class="card-title">{{ product.name }}</span>
-            </div>
-            <div class="card-content">
-              <p>
-                <img style="vertical-align: top" src="https://maxcdn.icons8.com/Android_L/PNG/24/Plants/paper_bag_with_seeds-24.png" alt="Siembra" title="Siembra" width="24" />
-                <span id="margin-right-10">{{ product.collecttime }}</span>       
-                <img style="vertical-align: top" src="https://maxcdn.icons8.com/iOS7/PNG/25/DIY/garden_shears-25.png" alt="Recogida" title="Recogida" width="22">
-                <span>{{ product.seedtime }}</span>
-                <span class="right">
-                  <a materialize="tooltip" href="#" class="tooltipped" data-position="bottom" data-tooltip="Añadir nota">
-                    <i class="material-icons dp48" title="Añadir nota">speaker_notes</i>         
-                  </a>
-                  <a materialize="tooltip" href="#" class="tooltipped" data-position="bottom" data-tooltip="Añadir a favoritos">
-                    <i class="material-icons dp48" title="Añadir a favoritos">star</i>
-                  </a>
-                </span>
-              </p>
-              
-              <p id="margin-top-15">I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.
-              </p>
-            </div>
 
-            <div class="card-action">
-              <a class="nav-item nav-link" (click)="getProduct(product.uuid)">Edit</a>
-              <a (click)="destroyProduct(product.uuid)">Delete</a>
-            </div>
-          </div>
-        </div>        
-      </li>
-    </ul>
+  <div class="ui-g">
+    <div class="ui-g-12 ui-md-6 ui-lg-4" *ngFor="let product of products">
+      <div class="card-image">
+        <a href="/products/{{ product.uuid}}"><img src="http://localhost:3001/{{ product.photo }}" weight="100" height="50"></a>
+
+        <span class="card-title">{{ product.name }}</span>
+      </div>
+      <div class="card-content">
+        <p>
+          <img style="vertical-align: top" pTooltip="recogida" tooltipPosition="right" src="https://maxcdn.icons8.com/Android_L/PNG/24/Plants/paper_bag_with_seeds-24.png"
+            alt="Siembra" title="Siembra" width="24" />
+          <span id="margin-right-10">{{ product.collecttime }}</span>
+          <img style="vertical-align: top" pTooltip="siembra" tooltipPosition="bottom" src="https://maxcdn.icons8.com/iOS7/PNG/25/DIY/garden_shears-25.png"
+            alt="Recogida" title="Recogida" width="22">
+          <span>{{ product.seedtime }}</span>
+          <span class="right">
+            <a pTooltip="Añadir a favoritos" tooltipPosition="bottom">
+              <i class="fa fa-star-o" aria-hidden="true"></i>
+            </a>
+          </span>
+          <span class="card-header-right">
+            <i class="fa fa-star" aria-hidden="true" *ngFor="let i of counter(product.difficulty)" pTooltip="dificultad" tooltipPosition="bottom"></i>
+          </span>
+        </p>
+
+        <p id="margin-top-15">I am a very simple card. I am good at containing small bits of information. I am convenient because I require little
+          markup to use effectively.
+        </p>
+      </div>
+
+      <div class="card-action">
+        <a class="nav-item nav-link" (click)="getProduct(product.uuid)">Edit</a>
+        <a (click)="destroyProduct(product.uuid)">Delete</a>
+      </div>
+    </div>
   </div>
+</div>

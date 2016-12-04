@@ -21,20 +21,16 @@ export class ProductListComponent implements OnInit {
   @Input('product') product: ProductModel;
   @Output() get: EventEmitter<string> = new EventEmitter<string>();
   @Output() destroy: EventEmitter<string> = new EventEmitter<string>();
+  counter = Array;
 
   constructor() { }
 
-  ngOnInit() {
-    /* this.products.map(obj => {
-      obj.collecttime = this._toString(obj.collecttime, config.es.months);
-      obj.seedtime = this._toString(obj.seedtime, config.es.months);
-    }) */
-  }
+  ngOnInit() {}
 
   destroyProduct(id) {
     this.product.uuid = id;
     console.log('emitting destroy', id);
-    this.destroy.emit(id)
+    this.destroy.emit(id);
     // this.router.navigate(['/']);
   }
 

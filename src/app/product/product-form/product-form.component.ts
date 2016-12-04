@@ -109,10 +109,12 @@ export class ProductFormComponent implements OnInit {
   newProduct() {
     console.log('PRDUCTt', this.product);
     this.guardar.emit(this.product);
+    this.uploadedFiles = [];
   }
 
   editProduct() {
     console.log('PRDUCTto a editar', this.product);
     this.edit.emit(this.product);
+    this.uploadedFiles = [];
   }
 }
